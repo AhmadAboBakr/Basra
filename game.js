@@ -22,11 +22,11 @@ Player = {
 /**
  * Human player
  */
-Human = Player.extend({});
+Human = {};
 /**
  * Machine player
  */
-Npc = Player.extend({});
+Npc = {};
 /**
  * The game object. Handles everything
  * @type {Object}
@@ -43,15 +43,18 @@ Game = {
     /**
      * deal cards
      */
-    deal:function(){}
+    deal:function(){},
+  /**
+   * Initialize Deck 
+   */
+    initDeck:function(){
+		for(var i = 1 ; i<5 ; ++i){
+			for (var j =1; j < 14 ; ++j){
+				var tempCard = Object.create(Card);
+				tempCard.number=j;
+				tempCard.color=i;
+				Game.deck.push(tempCard);		
+			}
+		}
+	}
 }
-
-for(var i =1;i<53;i++){
-    Game.deck.push();
-}
-
-
-
-
-
-
