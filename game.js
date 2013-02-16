@@ -72,7 +72,6 @@ function Game () {
      * Players
      */
     this.players = [];
-
 }
 /**
  * should be called after every played card, to calculate the score and update the floor
