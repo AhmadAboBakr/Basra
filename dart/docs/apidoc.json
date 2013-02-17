@@ -1,0 +1,118 @@
+[
+  {
+    "kind": "library",
+    "name": "Kotshena",
+    "children": [
+      {
+        "superclass": {
+          "name": "Object",
+          "refId": "Object"
+        },
+        "kind": "class",
+        "comment": "\nThe game object. Handles everything\n@type {Object}\n",
+        "name": "Game",
+        "children": [
+          {
+            "returnType": {
+              "name": "dynamic",
+              "refId": "dynamic"
+            },
+            "kind": "method",
+            "comment": "The players\n\nshould be called after every played card, to calculate the score and update the floor\n",
+            "name": "collect",
+            "children": [
+              {
+                "ref": {
+                  "name": "Player",
+                  "refId": "Player"
+                },
+                "kind": "param",
+                "name": "player",
+                "id": "player"
+              }
+            ],
+            "id": "collect1()"
+          },
+          {
+            "returnType": {
+              "name": "dynamic",
+              "refId": "dynamic"
+            },
+            "kind": "method",
+            "comment": "\ndeal cards\n",
+            "name": "deal",
+            "id": "deal0()"
+          },
+          {
+            "returnType": {
+              "name": "dynamic",
+              "refId": "dynamic"
+            },
+            "kind": "method",
+            "comment": "\nInitialize Deck\n",
+            "name": "initDeck",
+            "id": "initDeck0()"
+          },
+          {
+            "returnType": {
+              "name": "dynamic",
+              "refId": "dynamic"
+            },
+            "kind": "method",
+            "name": "gameLoop",
+            "id": "gameLoop0()"
+          },
+          {
+            "returnType": {
+              "name": "dynamic",
+              "refId": "dynamic"
+            },
+            "kind": "method",
+            "comment": "\n  The constructor: initilizes the Deck and the players\n",
+            "name": "Game",
+            "id": "Game0()"
+          },
+          {
+            "ref": {
+              "name": "dynamic",
+              "refId": "dynamic"
+            },
+            "kind": "property",
+            "name": "deck",
+            "id": "deck"
+          },
+          {
+            "ref": {
+              "name": "dynamic",
+              "refId": "dynamic"
+            },
+            "kind": "property",
+            "name": "table",
+            "id": "table"
+          },
+          {
+            "ref": {
+              "name": "dynamic",
+              "refId": "dynamic"
+            },
+            "kind": "property",
+            "name": "players",
+            "id": "players"
+          },
+          {
+            "returnType": {
+              "name": "dynamic",
+              "refId": "dynamic"
+            },
+            "kind": "constructor",
+            "comment": "\n  The constructor: initilizes the Deck and the players\n",
+            "name": "Game",
+            "id": "Game0()"
+          }
+        ],
+        "id": "Game"
+      }
+    ],
+    "id": "file:///home/ahmad/dart/Basra/dart/game.dart"
+  }
+]

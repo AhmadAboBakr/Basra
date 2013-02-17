@@ -1,0 +1,348 @@
+        <!DOCTYPE html>
+        <html>
+        <head>
+                <meta charset="utf-8">
+        <title>Game class / Kotshena Library / Dart Documentation</title>
+        <link rel="stylesheet" type="text/css"
+            href="../styles.css">
+        <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800" rel="stylesheet" type="text/css">
+        <link rel="shortcut icon" href="../favicon.ico">
+        
+        </head>
+        <body data-library="Kotshena" data-type="Game">
+        <div class="page">
+        <div class="header">
+          <a href="../index.html"><div class="logo"></div></a>
+          <a href="../index.html">Dart Documentation</a>
+         &rsaquo; <a href="../Kotshena.html">Kotshena</a> &rsaquo; <a href="../Kotshena/Game.html">Game</a>        <div id="search-box">
+          <input type="search" name="q" id="q" autocomplete="off"
+              class="search-input" placeholder="Search API">
+        </div>
+        
+      </div>
+      <div class="drop-down" id="drop-down"></div>
+      
+        <div class="nav">
+        
+<h2><div class="icon-library"></div><a href="../Kotshena.html">Kotshena</a></h2><ul class="icon">
+<li><div class="icon-class"></div><strong>Game</strong></li>
+</ul>
+</div>
+<div class="content">
+        <h2><strong>Game</strong>
+          class
+        </h2>
+        
+<button id="show-inherited" class="show-inherited">Hide inherited</button>
+<div class="doc">
+<p>The game object. Handles everything
+@type {Object}</p>
+<pre class="source">
+class Game{
+ var deck = [];/// The cards Deck
+ var table;/// The cards on the floor
+ var players = [];/// The players
+ 
+ /**
+  * should be called after every played card, to calculate the score and update the floor
+  */
+ collect (Player player) {
+   var card = player.play();
+   print("jo");
+   print("${player.name} played..${card.number}");
+   if(this.table.cards.length==0)
+   {
+     this.table.cards.add(card);
+   }
+   else {
+     var index;
+     var collected = false;
+     while(( index = this.table.compareCards(card))!=-1){
+       this.table.cards.removeAt(index);
+       player.score +=(this.table.cards.length!=0)?2:10;
+       collected = true;
+     }
+     if(!collected)
+       this.table.cards.add(card);
+   }
+ }
+
+ /**
+  * deal cards
+  */
+ deal () {
+   print("dealing...\n");
+   var buffer=new StringBuffer();
+   if (this.deck.length == 52) {
+     print("first deal...\n");
+     this.table.cards.add(this.deck.removeLast());
+     this.table.cards.add(this.deck.removeLast());
+     this.table.cards.add(this.deck.removeLast());
+     this.table.cards.add(this.deck.removeLast());
+   }
+   this.players.forEach((player ) {
+     player.hand.add(this.deck.removeLast());
+     player.hand.add(this.deck.removeLast());
+     player.hand.add(this.deck.removeLast());
+     player.hand.add(this.deck.removeLast());
+     buffer.add("${player.name} has ${player.hand.length} cards:  ");
+     player.hand.forEach((card){
+       buffer.add("{${card.number}:${card.color}} , ");
+     });
+     print(buffer.toString());
+     buffer.clear();
+   });
+   this.table.cards.forEach((card)=&gt;buffer.add("{${card.number}:${card.color}} , "));
+   print("The cards on the table ${buffer.toString()}");
+   print("deck has:${this.deck.length}\n");
+   buffer.clear();
+   
+ }
+
+ /**
+  * Initialize Deck
+  */
+ initDeck () {
+   for (var i = 1; i &lt; 5; ++i) {
+     for (var j = 1; j &lt; 14; ++j) {
+       var tempCard = new Card(i,j);
+       this.deck.add(tempCard);
+     }
+   };
+   this.deck=Helper.shuffle(this.deck);
+ }
+
+ gameLoop () {
+   while(true){
+     if(this.deck.isEmpty)break;
+     this.deal();
+     for(var i=0;i&lt;4;++i){
+       print("+++++++++++++");
+       this.players.forEach((player) {
+         if (player.hand.length == 0){
+           return false;
+         }
+         this.collect(player);
+         print("${player.name}'s score:${player.score} \n");
+       });
+   }
+   
+   print("\n------------------------------------------------\n");
+   //if (this.deck.length == 0)break;
+   this.players.forEach((player){
+     print("${player.name} scored: ${player.score}");
+   });
+   print("${table.cards.length} on the floor");
+ }
+   }
+
+ /**
+  *   The constructor: initilizes the Deck and the players
+  */ 
+ Game() {
+   table = new Table();
+   this.initDeck();
+   print("Deck has:${this.deck.length}");
+   var names = ["7amada","7amooda","abo7meed","a7mad"];
+   for(var i =0;i&lt;4;++i){
+     var pl = new Npc(names[i],1000);
+     this.players.add(pl);
+   }
+ }  
+}
+</pre>
+</div>
+<div>
+<h3>Constructors</h3>
+<div class="method"><h4 id="Game">
+<button class="show-code">Code</button>
+new <strong>Game</strong>() <a class="anchor-link" href="#Game"
+              title="Permalink to Game.Game">#</a></h4>
+<div class="doc">
+<p>  The constructor: initilizes the Deck and the players</p>
+<pre class="source">
+Game() {
+ table = new Table();
+ this.initDeck();
+ print("Deck has:${this.deck.length}");
+ var names = ["7amada","7amooda","abo7meed","a7mad"];
+ for(var i =0;i&lt;4;++i){
+   var pl = new Npc(names[i],1000);
+   this.players.add(pl);
+ }
+}
+</pre>
+</div>
+</div>
+</div>
+<div>
+<h3>Properties</h3>
+<div class="field"><h4 id="deck">
+<button class="show-code">Code</button>
+var         <strong>deck</strong> <a class="anchor-link"
+            href="#deck"
+            title="Permalink to Game.deck">#</a>
+        </h4>
+        <div class="doc">
+<pre class="source">
+deck = []
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="players">
+<button class="show-code">Code</button>
+var         <strong>players</strong> <a class="anchor-link"
+            href="#players"
+            title="Permalink to Game.players">#</a>
+        </h4>
+        <div class="doc">
+<pre class="source">
+players = []
+</pre>
+</div>
+</div>
+<div class="field"><h4 id="table">
+<button class="show-code">Code</button>
+var         <strong>table</strong> <a class="anchor-link"
+            href="#table"
+            title="Permalink to Game.table">#</a>
+        </h4>
+        <div class="doc">
+<pre class="source">
+table
+</pre>
+</div>
+</div>
+</div>
+<div>
+<h3>Methods</h3>
+<div class="method"><h4 id="collect">
+<button class="show-code">Code</button>
+<strong>collect</strong>(<a href="../Kotshena/Player.html">Player</a> player) <a class="anchor-link" href="#collect"
+              title="Permalink to Game.collect">#</a></h4>
+<div class="doc">
+<p>The players</p>
+<p>should be called after every played card, to calculate the score and update the floor</p>
+<pre class="source">
+collect (Player player) {
+ var card = player.play();
+ print("jo");
+ print("${player.name} played..${card.number}");
+ if(this.table.cards.length==0)
+ {
+   this.table.cards.add(card);
+ }
+ else {
+   var index;
+   var collected = false;
+   while(( index = this.table.compareCards(card))!=-1){
+     this.table.cards.removeAt(index);
+     player.score +=(this.table.cards.length!=0)?2:10;
+     collected = true;
+   }
+   if(!collected)
+     this.table.cards.add(card);
+ }
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="deal">
+<button class="show-code">Code</button>
+<strong>deal</strong>() <a class="anchor-link" href="#deal"
+              title="Permalink to Game.deal">#</a></h4>
+<div class="doc">
+<p>deal cards</p>
+<pre class="source">
+deal () {
+ print("dealing...\n");
+ var buffer=new StringBuffer();
+ if (this.deck.length == 52) {
+   print("first deal...\n");
+   this.table.cards.add(this.deck.removeLast());
+   this.table.cards.add(this.deck.removeLast());
+   this.table.cards.add(this.deck.removeLast());
+   this.table.cards.add(this.deck.removeLast());
+ }
+ this.players.forEach((player ) {
+   player.hand.add(this.deck.removeLast());
+   player.hand.add(this.deck.removeLast());
+   player.hand.add(this.deck.removeLast());
+   player.hand.add(this.deck.removeLast());
+   buffer.add("${player.name} has ${player.hand.length} cards:  ");
+   player.hand.forEach((card){
+     buffer.add("{${card.number}:${card.color}} , ");
+   });
+   print(buffer.toString());
+   buffer.clear();
+ });
+ this.table.cards.forEach((card)=&gt;buffer.add("{${card.number}:${card.color}} , "));
+ print("The cards on the table ${buffer.toString()}");
+ print("deck has:${this.deck.length}\n");
+ buffer.clear();
+ 
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="gameLoop">
+<button class="show-code">Code</button>
+<strong>gameLoop</strong>() <a class="anchor-link" href="#gameLoop"
+              title="Permalink to Game.gameLoop">#</a></h4>
+<div class="doc">
+<pre class="source">
+gameLoop () {
+ while(true){
+   if(this.deck.isEmpty)break;
+   this.deal();
+   for(var i=0;i&lt;4;++i){
+     print("+++++++++++++");
+     this.players.forEach((player) {
+       if (player.hand.length == 0){
+         return false;
+       }
+       this.collect(player);
+       print("${player.name}'s score:${player.score} \n");
+     });
+ }
+ 
+ print("\n------------------------------------------------\n");
+ //if (this.deck.length == 0)break;
+ this.players.forEach((player){
+   print("${player.name} scored: ${player.score}");
+ });
+ print("${table.cards.length} on the floor");
+}
+ }
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="initDeck">
+<button class="show-code">Code</button>
+<strong>initDeck</strong>() <a class="anchor-link" href="#initDeck"
+              title="Permalink to Game.initDeck">#</a></h4>
+<div class="doc">
+<p>Initialize Deck</p>
+<pre class="source">
+initDeck () {
+ for (var i = 1; i &lt; 5; ++i) {
+   for (var j = 1; j &lt; 14; ++j) {
+     var tempCard = new Card(i,j);
+     this.deck.add(tempCard);
+   }
+ };
+ this.deck=Helper.shuffle(this.deck);
+}
+</pre>
+</div>
+</div>
+</div>
+        </div>
+        <div class="clear"></div>
+        </div>
+        <div class="footer">
+          <div>This page was generated at 2013-02-17 09:58:57.867</div>
+        </div>
+        <script async src="../client-static.js"></script>
+        </body></html>
+        
