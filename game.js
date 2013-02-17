@@ -11,6 +11,9 @@
 function Card(){
     this.color = null;
     this.number = null;
+    this.getCard =function (){
+        return "{"+this.color+","+this.number+"}";
+    }
 }
 /**
  * Player class, Human and Npc extend from it
@@ -28,22 +31,26 @@ function Player() {
 /**
  * Human player
  */
-function Human() {};
+function Human() {}
 Human.prototype = Object.create(Player.prototype);
 /**
  * Machine player
  */
-function Npc() {
+function Npc(name) {
     Player.call(this);
+    this.name=name;
     this.play =function () {
         var ret = false;
-//    this.hand.forEach (function(card){
-//        if(game.table.compareCards(card)){
-//            ret = card;
-//        }
-//    });
-//    return ret | this.hand.pop() | false;
-        return this.hand.pop();
+        this.hand.forEach (function(card){
+            if(game.table.compareCards(card)!=-1){
+                ret = card;
+            }
+        });
+        if(!ret)return this.hand.pop();
+        this.hand=this.hand.filter(function (element){///this  return all but ret
+            return (element!==ret);
+        });
+        return ret ;
     };
 }
 Npc.prototype = Object.create(Player.prototype);
@@ -81,21 +88,18 @@ function Game () {
      */
     this.collect = function (player) {
         var card = player.play();
-        console.log(player.name+" played.."+card.number+" \n");
-        if(this.table.cards.length===0)
+        console.log(player.name + " played:"+card.color);
+         if(this.table.cards.length===0)
         {
-//        console.log("no cards on the floor, the player is just going to throw the card...\n");
             this.table.cards.push(card);
         }
         else {
-//        console.log("there are "+this.table.cards.length+" cards on the floor, let's see what happens...\n");
-            console.log(this.table.cards);
-            console.log(card);
+            console.log(player.name + " played:"+card.color);
             var index;
             var collected = false;
             while(( index = this.table.compareCards(card))!==-1){
                 this.table.cards.splice(index,1);
-                player.score +=(this.table.cards.length===0)?2:10;
+                player.score +=(this.table.cards.length!==0)?2:11;
                 collected = true;
             }
             if(!collected)
@@ -107,8 +111,7 @@ function Game () {
      * deal cards
      */
     this.deal = function () {
-        var $this = this;
-        console.log("dealing...\n");
+        console.log("dealing...");
         if (this.deck.length == 52) {
             console.log("first deal...\n");
             this.table.cards.push(this.deck.pop());
@@ -116,12 +119,13 @@ function Game () {
             this.table.cards.push(this.deck.pop());
             this.table.cards.push(this.deck.pop());
         }
+
         this.players.forEach(function (player ) {
-            player.hand.push($this.deck.pop());
-            player.hand.push($this.deck.pop());
-            player.hand.push($this.deck.pop());
-            player.hand.push($this.deck.pop());
-        });
+            player.hand.push(this.deck.pop());
+            player.hand.push(this.deck.pop());
+            player.hand.push(this.deck.pop());
+            player.hand.push(this.deck.pop());
+        },this);
         console.log("deck has:"+this.deck.length+"\n");
     };
 
@@ -130,11 +134,12 @@ function Game () {
      * Initialize Deck
      */
     this.initDeck = function () {
-        for (var i = 1; i < 5; ++i) {
+        mapper= {0:'t',1:'k',2:'h',3:'s'};
+        for (var i = 0; i < 4; ++i) {
             for (var j = 1; j < 14; ++j) {
                 var tempCard = Object.create(Card);
                 tempCard.number = j;
-                tempCard.color = i;
+                tempCard.color = mapper[0];
                 this.deck.push(tempCard);
             }
         }
@@ -143,46 +148,38 @@ function Game () {
         });
     };
 
-    this.initz = function () {
+    this.init = function () {
         this.initDeck();
-        console.log("Deck has:"+this.deck.length+"\n");
+        console.log("Deck has:"+this.deck.length);
         var names = ["7amada","7amooda","abo7meed","a7mad"];
         for(var i =0;i<4;++i){
-            var pl = new Npc();
-            pl.name = names[i];
+            var pl = new Npc(names[i]);
+            console.log(pl);
             this.players.push(pl);
         }
         this.deal();
-        console.log("Deck has:"+this.deck.length+"\n");
-
     };
 
     this.gameLoop = function () {
-        $this =  this;
-        for (var j =0;j<1;j++) {
+        while (true) {
             for(var i =0;i<4;i++){
-                console.log("\n+++++++++++++\n");
-                console.log("there are "+game.table.cards.length+" cards on the floor.. \n");
-                $this.players.forEach(function(player){
-                    console.log("player "+player.name+" has: " + player.hand.length);
-                });
-                console.log("\n");
-                $this.players.forEach(function(player) {
+                console.log("there are "+game.table.cards.length+" cards on the floor..");
+                this.players.forEach(function(player) {
                     if (player.hand.length === 0){
                         return false;
                     }
-                    $this.collect(player);
+                    this.collect(player);
                     console.log(player.name+"'s score:"+player.score+"\n");
-                });
+                },this);
             }
             console.log("\n------------------------------------------------\n");
             if (this.deck.length === 0)break;
-            $this.deal();
+            this.deal();
         }
     };
 
 }
 
 var game = new Game;
-game.initz();
+game.init();
 game.gameLoop();
