@@ -6,18 +6,20 @@
  */
 /**
  * Card
- * @type {Object}
+ *
  */
-function Card(){
-    this.color = null;
-    this.number = null;
+Card= function (color,number){
+    this.color = color;
+    this.number = number;
+    that=this;
     this.getCard =function (){
-        return "{"+this.color+","+this.number+"}";
+        return "{"+that.color+","+that.number+"}";
     }
+    return this;
 }
 /**
  * Player class, Human and Npc extend from it
- * @type {Object}
+ * @type {Object}this
  */
 function Player() {
     this.score=0;
@@ -87,14 +89,16 @@ function Game () {
      * should be called after every played card, to calculate the score and update the floor
      */
     this.collect = function (player) {
+        var buffer=player.name+" cards are:";
+        player.hand.forEach(function (card){buffer+=" "+card.getCard();});
         var card = player.play();
-        console.log(player.name + " played:"+card.color);
-         if(this.table.cards.length===0)
+        buffer+= " .... he played :"+card.getCard();
+        console.log(buffer);
+        if(this.table.cards.length===0)
         {
             this.table.cards.push(card);
         }
         else {
-            console.log(player.name + " played:"+card.color);
             var index;
             var collected = false;
             while(( index = this.table.compareCards(card))!==-1){
@@ -114,17 +118,18 @@ function Game () {
         console.log("dealing...");
         if (this.deck.length == 52) {
             console.log("first deal...\n");
-            this.table.cards.push(this.deck.pop());
-            this.table.cards.push(this.deck.pop());
-            this.table.cards.push(this.deck.pop());
-            this.table.cards.push(this.deck.pop());
-        }
 
+            this.table.cards.push(game.deck.pop());
+            this.table.cards.push(game.deck.pop());
+            this.table.cards.push(game.deck.pop());
+            this.table.cards.push(game.deck.pop());
+        }
         this.players.forEach(function (player ) {
-            player.hand.push(this.deck.pop());
-            player.hand.push(this.deck.pop());
-            player.hand.push(this.deck.pop());
-            player.hand.push(this.deck.pop());
+            player.hand.push(game.deck.pop());
+            player.hand.push(game.deck.pop());
+            player.hand.push(game.deck.pop());
+            player.hand.push(game.deck.pop());
+
         },this);
         console.log("deck has:"+this.deck.length+"\n");
     };
@@ -137,15 +142,22 @@ function Game () {
         mapper= {0:'t',1:'k',2:'h',3:'s'};
         for (var i = 0; i < 4; ++i) {
             for (var j = 1; j < 14; ++j) {
-                var tempCard = Object.create(Card);
-                tempCard.number = j;
-                tempCard.color = mapper[0];
-                this.deck.push(tempCard);
+
+                //this is should be changed
+                var obj = {
+                    color: mapper[i],
+                    number: j,
+                    getCard: function (){
+                        return "{"+this.color+","+this.number+"}";
+                    }
+                };
+                this.deck.push(obj);
             }
         }
         this.deck.sort(function () {
             return Math.round(Math.random());
         });
+
     };
 
     this.init = function () {
@@ -161,9 +173,12 @@ function Game () {
     };
 
     this.gameLoop = function () {
+        var buffer;
         while (true) {
             for(var i =0;i<4;i++){
-                console.log("there are "+game.table.cards.length+" cards on the floor..");
+                buffer="Table:";
+                this.table.cards.forEach(function (card){buffer+=" " +card.getCard()})
+                console.log(buffer);
                 this.players.forEach(function(player) {
                     if (player.hand.length === 0){
                         return false;
@@ -172,10 +187,12 @@ function Game () {
                     console.log(player.name+"'s score:"+player.score+"\n");
                 },this);
             }
-            console.log("\n------------------------------------------------\n");
             if (this.deck.length === 0)break;
             this.deal();
         }
+        console.log("\n------------------------------------------------\n");
+        this.players.forEach(function(player){console.log(player.name+"Score :"+player.score);});
+        console.log("There are "+this.table.cards.length+" Left on the floor");
     };
 
 }
