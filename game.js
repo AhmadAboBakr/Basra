@@ -11,9 +11,9 @@
 Card= function (color,number){
     this.color = color;
     this.number = number;
-    that=this;
     this.getCard =function (){
-        return "{"+that.color+","+that.number+"}";
+        return "{"+this.color+","+this.number+"}";
+        return this;
     }
     return this;
 }
