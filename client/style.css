@@ -1,0 +1,48 @@
+.card{
+    border: 1px solid rgb(120,120,120);
+    width: 70px;
+    height: 70px;
+    display: inline-block;
+    margin: 10px;
+    border-radius: 4px;
+}
+.heart{
+    background: rgb(250,100,100);
+    width: 60px;
+    height: 30px;
+    display: inline-block;
+}
+.heart:after{
+    content: "heart";
+}
+.spade{
+    background: rgb(50,50,50);
+    width: 60px;
+    height: 30px;
+    display: inline-block;
+    color: #ffffff;
+    content: "spade";
+}
+.spade:after{
+    content: "spade";
+}
+.trefl{
+    background: rgb(50,50,50);
+    width: 60px;
+    height: 30px;
+    display: inline-block;
+    color: #ffffff;
+}
+.trefl:after{
+    content: "trefl";
+}
+.karoh{
+    background: rgb(250,100,100);
+    width: 60px;
+    height: 30px;
+    display: inline-block;
+    content: "karoh";
+}
+.karoh:after{
+    content: "karoh";
+}

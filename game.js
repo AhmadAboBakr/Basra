@@ -41,6 +41,7 @@ Human.prototype = Object.create(Player.prototype);
 function Npc(name) {
     Player.call(this);
     this.name=name;
+
     this.play =function () {
         var ret = false;
         this.hand.forEach (function(card){
@@ -49,7 +50,7 @@ function Npc(name) {
             }
         });
         if(!ret)return this.hand.pop();
-        this.hand=this.hand.filter(function (element){///this  return all but ret
+        this.hand = this.hand.filter( function (element){///this  return all but ret
             return (element!==ret);
         });
         return ret ;
