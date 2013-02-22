@@ -18,14 +18,14 @@ Card= function (color,number){
 
     /**
      *
-     * @param type bool 0 for html, 1 for console
+     * @param format bool 0 for html, 1 for console
      * @return {*}
      */
-    this.getCard =function (type){
-        if(type===1){
+    this.getCard =function (format){
+        if(format===1){
             return "{"+this.color+","+this.number+"}";
         }
-        return '<div class="card"><div class="'+this.color+'"></div><br>'+this.number+'</div>';
+        return '<div class="card"><div class="'+this.color+'">&'+this.color+';</div><br>'+this.number+'</div>';
     }
     return this;
 }
@@ -145,18 +145,18 @@ function Game () {
 //                $("#log").html("collected card(s)!");
                 collected = true;
             }
-            for(var i = 0; i< this.table.length ; i++){
-                if(index = this.table.compareCards(card) !== -1){
-                    player.score +=(this.table.cards.length!==0)?2:11;
-                    this.table.cards.splice(index,1);
-                    collected = true;
-                }
-                ///if( 2 cards add up to a number the player has)
-                ////do the same
-
-                //if( player has a jack) play it
-
-            }
+//            for(var i = 0; i< this.table.length ; i++){
+//                if(index = this.table.compareCards(card) !== -1){
+//                    player.score +=(this.table.cards.length!==0)?2:11;
+//                    this.table.cards.splice(index,1);
+//                    collected = true;
+//                }
+//                ///if( 2 cards add up to a number the player has)
+//                ////do the same
+//
+//                //if( player has a jack) play it
+//
+//            }
             if(!collected)
             {
 //                $("#log").html("throwing card!");
@@ -196,7 +196,7 @@ function Game () {
      * Initialize Deck
      */
     this.initDeck = function () {
-        mapper= {0:'trefl',1:'karoh',2:'heart',3:'spade'};
+        mapper= {0:'clubs',1:'diams',2:'hearts',3:'spades'};
         for (var i = 0; i < 4; ++i) {
             for (var j = 1; j < 14; ++j) {
                 var obj = new Card(mapper[i],j);

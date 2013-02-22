@@ -1,48 +1,47 @@
+@charset "UTF-8";
 .card{
-    border: 1px solid rgb(120,120,120);
+    background: rgb(245,245,245);
+    border: 1px solid rgb(190,190,190);
     width: 70px;
     height: 70px;
     display: inline-block;
     margin: 10px;
     border-radius: 4px;
 }
-.heart{
-    background: rgb(250,100,100);
+.hearts{
+    color: rgb(250,100,100);
     width: 60px;
     height: 30px;
     display: inline-block;
+    font-size: 30px;
 }
-.heart:after{
-    content: "heart";
-}
-.spade{
-    background: rgb(50,50,50);
+.spades{
     width: 60px;
     height: 30px;
     display: inline-block;
-    color: #ffffff;
-    content: "spade";
+    color: black;
+    font-size: 30px;
 }
-.spade:after{
-    content: "spade";
-}
-.trefl{
-    background: rgb(50,50,50);
+.clubs{
     width: 60px;
     height: 30px;
     display: inline-block;
-    color: #ffffff;
+    color: black;
+    font-size: 30px;
 }
-.trefl:after{
-    content: "trefl";
-}
-.karoh{
-    background: rgb(250,100,100);
+.diams{
+    color: rgb(250,100,100);
     width: 60px;
     height: 30px;
     display: inline-block;
-    content: "karoh";
+    font-size: 30px;
 }
-.karoh:after{
-    content: "karoh";
+.table{
+    width: 700px;
+    height:610px;
+    margin: 5px;
+    background: url("bg1.jpg") rgb(240,245,250);
+    border: 1px solid rgb(150,150,180);
+    float: left;
+    padding: 10px;
 }
