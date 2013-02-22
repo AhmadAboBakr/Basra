@@ -78,7 +78,7 @@ function Npc(name) {
         this.hand.push(card);
     }
     this.updateHtml = function(){
-        var html = this.score + " ";
+        var html = this.score + " <br>";
         for(var i =0; i<this.hand.length ; i++){
             html += this.hand[i].getCard(0);
         }

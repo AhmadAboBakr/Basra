@@ -7,6 +7,7 @@
     display: inline-block;
     margin: 10px;
     border-radius: 4px;
+    color: green;
 }
 .hearts{
     color: rgb(250,100,100);
