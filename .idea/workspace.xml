@@ -2,9 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3f01c63b-5149-4fe5-8ae8-7110d0d281e3" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/basra.html" afterPath="$PROJECT_DIR$/client/basra.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/client.js" afterPath="$PROJECT_DIR$/client/client.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/style.css" afterPath="$PROJECT_DIR$/client/style.css" />
     </list>
     <ignored path="Basra.iws" />
@@ -62,7 +59,7 @@
       <file leaf-file-name="style.css" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/client/style.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="9" column="17" selection-start="220" selection-end="220" vertical-scroll-proportion="0.27370304">
+            <state line="11" column="0" selection-start="223" selection-end="223" vertical-scroll-proportion="0.33452594">
               <folding />
             </state>
           </provider>
@@ -489,7 +486,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/client/style.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="9" column="17" selection-start="220" selection-end="220" vertical-scroll-proportion="0.27370304">
+        <state line="11" column="0" selection-start="223" selection-end="223" vertical-scroll-proportion="0.33452594">
           <folding />
         </state>
       </provider>

@@ -9,6 +9,10 @@
     border-radius: 4px;
     color: green;
 }
+.card:hover{
+    border: 1px solid black;
+    box-shadow: 0px 0px 10px #fff;
+}
 .hearts{
     color: rgb(250,100,100);
     width: 60px;
