@@ -277,12 +277,16 @@ function Game () {
         },this);
         scoreHtml += "</table>";
         $("#log").html(scoreHtml);
-
     };
-
 }
 
 var game = new Game;
 game.init();
-//game.gameLoop();
-$(document).on("click",'#next',function(){game.gameStep();});
+jQuery.getJSON();
+$(document).on("click",'#next',function(){game.step();});
+var script = document.createElement('script');
+script.src = 'http://127.0.0.1/start';
+function __parseJSONPResponse(data) {
+    // now you have access to your data
+    alert(data);
+}
