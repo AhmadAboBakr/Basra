@@ -50,3 +50,13 @@
     float: left;
     padding: 10px;
 }
+#scores{
+    border-collapse: collapse;
+    width: 99%;
+    margin: 1px auto;
+}
+#scores td, #scores th{
+    padding: 4px;
+    text-align: center;
+    border: 1px solid #444;
+}

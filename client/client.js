@@ -78,7 +78,7 @@ function Npc(name) {
         this.hand.push(card);
     }
     this.updateHtml = function(){
-        var html = this.score + " <br>";
+        var html = this.name.replace('player_','') + " <br>";
         for(var i =0; i<this.hand.length ; i++){
             html += this.hand[i].getCard(0);
         }
@@ -232,13 +232,19 @@ function Game () {
         }
         this.deal();
         this.table.updateHtml();
-
+        var scoreHtml = "<table id='scores'><tr><th>Player</th><th>Score</th></tr>";
+        this.players.forEach(function(player) {
+            scoreHtml += "<tr><td>" + player.name.replace('player_','') + "</td><td>"+player.score + "</td></tr>"
+        },this);
+        scoreHtml += "</table>";
+        $("#log").html(scoreHtml);
     };
 
     this.nextPlayer = 0;
 
     this.gameStep = function () {
         var playersHaveCards = false;
+        $("#log").html("");
         this.players.forEach(function(player) {
             if (player.hand.length != 0){
                 playersHaveCards  = true;
@@ -251,7 +257,8 @@ function Game () {
         if(playersHaveCards){
             console.log("playing...");
             this.nextPlayer = (this.nextPlayer + 1)%4;
-            $("#log").html("next player:"+this.nextPlayer);
+//            $("#log").html("next player:"+this.nextPlayer);
+
             var player = this.players[this.nextPlayer];
             if (player.hand.length === 0){
                 return false;
@@ -264,6 +271,12 @@ function Game () {
             console.log("dealing...");
             this.deal();
         }
+        var scoreHtml = "<table id='scores'><tr><th>Player</th><th>Score</th></tr>";
+        this.players.forEach(function(player) {
+            scoreHtml += "<tr><td>" + player.name.replace('player_','') + "</td><td>"+player.score + "</td></tr>"
+        },this);
+        scoreHtml += "</table>";
+        $("#log").html(scoreHtml);
 
     };
 
