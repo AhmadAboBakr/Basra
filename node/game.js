@@ -171,7 +171,7 @@ Game = function () {
      * Initialize Deck
      */
     this.initDeck = function () {
-        mapper = {0:'t', 1:'k', 2:'h', 3:'s'};
+        mapper = {0:'clubs', 1:'diams', 2:'hearts', 3:'spades'};
         for (var i = 0; i < 4; ++i) {
             for (var j = 1; j < 14; ++j) {
                 var obj = new Card(mapper[i], j);

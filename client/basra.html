@@ -22,19 +22,8 @@
     </div>
 </div>
 
-<!--<script src="client.js"></script>-->
-<script>
-    var game = {};
-    $.get('/start',function(data){
-        game=data;
-        console.log(data);
-    },'json');
-    $("#next").click(function(){
-        $.get('/step',function(data){
+<!--<script src="client1.js"></script>-->
+<script src="client.js"></script>
 
-            console.log(data);
-        },'json')
-    });
-</script>
 </body>
 </html>

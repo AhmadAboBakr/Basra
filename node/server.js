@@ -4,7 +4,7 @@ var express = require('express');
 var fs = require('fs');
 var app = express();
 app.set('view engine', 'html'); app.set('views', "../client");
-app.use(express.static('../client'))
+app.use(express.static('../client'));
 app.get('/start', function(req, res){
     game= new gamelib.game();
     var body=game.init();
