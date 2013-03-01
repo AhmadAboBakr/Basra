@@ -62,10 +62,7 @@ function Npc(name) {
                 ret = card;
             }
         });
-        if (!ret)return this.hand.pop();
-        this.hand = this.hand.filter(function (element) {///this  return all but ret
-            return (element !== ret);
-        });
+        if (!ret)return  this.hand[0];
         return ret;
     };
     this.push = function (card) {
@@ -112,18 +109,16 @@ Game = function () {
     /**
      * should be called after every played card, to calculate the score and update the floor
      */
-    this.collect = function (player) {
-        var buffer = player.name + " cards are:";
-        player.hand.forEach(function (card) {
-            buffer += " " + card.getCard();
+    this.collect = function (player,cardId) {
+        var card=(cardId==-1)?player.play(this.table):player.hand[cardId];
+        player.hand = player.hand.filter(function (element) {
+            ///this  return all but card
+            return (element !== card);
         });
-        var card = player.play(this.table);
-        buffer += " .... he played :" + card.getCard();
-        console.log(buffer);
         if (this.table.cards.length === 0) {
             this.table.cards.push(card);
         }
-        else if (card.number == 11 || (card.number == 7 && card.color == 'k')) {
+        else if (card.number == 11 || (card.number == 7 && card.color == 'diams')) {
             player.score += 1;
             while (this.table.cards.length != 0) {
                 player.score += 1;
@@ -161,7 +156,15 @@ Game = function () {
             player.hand.push(that.deck.pop());
             player.hand.push(that.deck.pop());
             player.hand.push(that.deck.pop());
+            player.hand.sort(function (a,b){
 
+                    if (a.number < b.number)
+                        return -1;
+                    if (a.number > b.number)
+                        return 1;
+                    return 0;
+
+            });
         }, this);
         console.log("deck has:" + this.deck.length + "\n");
     };
@@ -193,31 +196,39 @@ Game = function () {
         this.deal();
         return JSON.stringify({players:this.players,table:this.table});
     };
-
-    this.step = function () {
-        var buffer;
-        buffer = "Table:";
-        this.table.cards.forEach(function (card) {
-            buffer += " " + card.getCard()
-        });
-        console.log(buffer);
-        var player=this.players[this.turn++];
-        if (player.hand.length === 0) {
-            if(this.deck.length!=0)this.deal();
-            else return this.init();
+    /**
+     *
+     * returns -1 if it's not the turn of the player with playerId
+     * Object containing the players an the table otherwise
+     * @param playerId
+     * @param card
+     * @return {*}
+     */
+    this.step = function (playerId,cardId) {
+        if(playerId==-1 && cardId==-1){
+            this.collect(this.players[this.turn++],cardId);
+            this.turn%=4;
         }
-        else {
-            this.collect(player);
-            console.log(player.name + "'s score:" + player.score + "\n");
-            if(this.turn==4)
-                this.turn=0;
+        else if(playerId!=this.turn){
+            return false;
         }
+        else{
+            var player=this.players[playerId];
+            if (player.hand.length === 0) {
+                if(this.deck.length!=0)this.deal();
+                else return this.init();
+            }
+            else {
+                this.collect(player,cardId);
+                this.turn++;
+                if(this.turn>3)
+                    this.turn=0;
+            }
+        }
+//        if(npc)player.play(this.table);
         return JSON.stringify({players:this.players,table:this.table});
     }
-    console.log("\n------------------------------------------------\n");
-    this.players.forEach(function (player) {
-        console.log(player.name + "Score :" + player.score);
-    });
-   // console.log("There are " + this.table.cards.length + " Left on the floor");
+    // console.log("There are " + this.table.cards.length + " Left on the floor");
 }
+
 exports.game = Game;
