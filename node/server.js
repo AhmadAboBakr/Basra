@@ -5,6 +5,7 @@ var fs = require('fs');
 var app = express();
 app.set('view engine', 'html'); app.set('views', "../client");
 app.use(express.static('../client'));
+app.use(express.bodyParser());
 app.get('/start', function(req, res){
     game= new gamelib.game();
     var body=game.init();
@@ -12,10 +13,10 @@ app.get('/start', function(req, res){
 });
 
 app.get('/step', function(req, res){
-    var body=game.step();
-//    res.setHeader('Content-Type', 'application/javascript');
-    res.setHeader('Content-Length', body.length);
-    res.end(body);
+    var body=game.step(req.query.player,req.query.card);
+    //console.log(req.query.player+" : "+req.query.card+ " : " +body);
+    body=body || JSON.stringify({});
+    res.send(body);
 });
 
 app.get('/',function(req, res){
