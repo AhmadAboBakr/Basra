@@ -5,7 +5,8 @@
  * Time: 1:46 PM
  */
 
-exports.Table = function () {
+
+exports.Table = function() {
     this.cards = [];
     this.compareCards = function (obj) {
         for (var i = 0; i < this.cards.length; ++i) {
@@ -15,4 +16,4 @@ exports.Table = function () {
         }
         return -1;
     };
-}
+};

@@ -8,15 +8,11 @@ app.use(express.static('../client'));
 app.use(express.bodyParser());
 app.get('/start', function(req, res){
     game= new gamelib.game();
-    var body=game.init();
-    res.send(body);
+    res.send(game.init());
 });
 
 app.get('/step', function(req, res){
-    var body=game.step(req.query.player,req.query.card);
-    //console.log(req.query.player+" : "+req.query.card+ " : " +body);
-    body=body || JSON.stringify({});
-    res.send(body);
+    res.send(game.step(req.query.player,req.query.card));
 });
 
 app.get('/',function(req, res){

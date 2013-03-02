@@ -16,3 +16,32 @@ exports.Player = function () {
         return false;
     }
 }
+
+/**
+ * Human player
+ */
+exports.Human = function() {
+    exports.Player.call(this);
+}
+exports.Human.prototype = Object.create(exports.Player.prototype);
+/**
+ * Machine player
+ */
+exports.Npc = function (name) {
+    exports.Player.call(this);
+    this.name = name;
+    this.play = function (table) {
+        var ret = false;
+        this.hand.forEach(function (card) {
+            if (table.compareCards(card) != -1) {
+                ret = card;
+            }
+        });
+        if (!ret)return  this.hand[0];
+        return ret;
+    };
+    this.push = function (card) {
+        this.hand.push(card);
+    }
+}
+exports.Npc.prototype = Object.create(exports.Player.prototype);

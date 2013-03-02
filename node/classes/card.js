@@ -10,10 +10,15 @@
  */
 exports.Card = function (color, number) {
     /**
-     * k,t,s,h
+     * diams,clubs,spades,hearts
      * @type {*}
      */
     this.color = color;
+
+    /**
+     * 1->13
+     * @type {*}
+     */
     this.number = number;
 
     /**
