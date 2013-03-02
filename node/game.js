@@ -4,87 +4,11 @@
  * Date: 2/15/13
  * Time: 5:51 PM
  */
-/**
- * Card
- *
- */
-
-
-Card = function (color, number) {
-    /**
-     * k,t,s,h
-     * @type {*}
-     */
-    this.color = color;
-    this.number = number;
-
-    /**
-     *
-     * @param type bool 0 for html, 1 for console
-     * @return {*}
-     */
-    this.getCard = function (type) {
-        //return "1";
-        return JSON.stringify({color:this.color, number:this.number});
-    }
-    return this;
-}
-/**
- * Player class, Human and Npc extend from it
- * @type {Object}this
- */
-Player = function () {
-    this.score = 0;
-    this.hand = [];
-    this.name = "";
-    this.play = function () {
-        return false;
-    }
-}
-
-/**
- * Human player
- */
-function Human() {
-    Player.call(this);
-}
-Human.prototype = Object.create(Player.prototype);
-/**
- * Machine player
- */
-function Npc(name) {
-    Player.call(this);
-    this.name = name;
-    this.play = function (table) {
-        var ret = false;
-        this.hand.forEach(function (card) {
-            if (table.compareCards(card) != -1) {
-                ret = card;
-            }
-        });
-        if (!ret)return this.hand.pop();
-        this.hand = this.hand.filter(function (element) {///this  return all but ret
-            return (element !== ret);
-        });
-        return ret;
-    };
-    this.push = function (card) {
-        this.hand.push(card);
-    }
-}
-Npc.prototype = Object.create(Player.prototype);
-
-function Table() {
-    this.cards = [];
-    this.compareCards = function (obj) {
-        for (var i = 0; i < this.cards.length; ++i) {
-            if (this.cards[i].number == obj.number) {
-                return i;
-            }
-        }
-        return -1;
-    };
-}
+var Card = require('./classes/card').Card;
+var Player = require('./classes/player').Player;
+var Human = require('./classes/human').Human;
+var Npc = require('./classes/npc').Npc;
+var Table = require('./classes/table').Table;
 
 /**
  * The game object. Handles everything
@@ -109,6 +33,10 @@ Game = function () {
      */
 
     this.turn = 0;
+
+
+
+
     /**
      * should be called after every played card, to calculate the score and update the floor
      */
