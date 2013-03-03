@@ -2,23 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0cebc0cb-b681-4668-b37f-5608e58737b1" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/client/css/style.css" />
-      <change type="DELETED" beforePath="C:\nookz\nodeProjects\Basra\client\client1.js" afterPath="" />
-      <change type="DELETED" beforePath="C:\nookz\nodeProjects\Basra\client\style.css" afterPath="" />
-      <change type="DELETED" beforePath="C:\nookz\nodeProjects\Basra\node\classes\human.js" afterPath="" />
-      <change type="DELETED" beforePath="C:\nookz\nodeProjects\Basra\node\classes\npc.js" afterPath="" />
-      <change type="DELETED" beforePath="C:\nookz\nodeProjects\Basra\test.js" afterPath="" />
-      <change type="MOVED" beforePath="C:\nookz\nodeProjects\Basra\client\bg1.jpg" afterPath="$PROJECT_DIR$/client/images/bg1.jpg" />
-      <change type="MOVED" beforePath="C:\nookz\nodeProjects\Basra\client\bg2.jpg" afterPath="$PROJECT_DIR$/client/images/bg2.jpg" />
-      <change type="MOVED" beforePath="C:\nookz\nodeProjects\Basra\client\client.js" afterPath="$PROJECT_DIR$/client/js/client.js" />
-      <change type="MOVED" beforePath="C:\nookz\nodeProjects\Basra\client\jquery-1.9.0.min.js" afterPath="$PROJECT_DIR$/client/js/jquery-1.9.0.min.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" afterPath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/basra.html" afterPath="$PROJECT_DIR$/client/basra.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node/classes/card.js" afterPath="$PROJECT_DIR$/node/classes/card.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node/classes/player.js" afterPath="$PROJECT_DIR$/node/classes/player.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node/classes/table.js" afterPath="$PROJECT_DIR$/node/classes/table.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node/game.js" afterPath="$PROJECT_DIR$/node/game.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/css/style.css" afterPath="$PROJECT_DIR$/client/css/style.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/js/client.js" afterPath="$PROJECT_DIR$/client/js/client.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node/server.js" afterPath="$PROJECT_DIR$/node/server.js" />
     </list>
     <ignored path="Basra.iws" />
@@ -51,44 +38,12 @@
       <file leaf-file-name="basra.html" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/client/basra.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="19" column="133" selection-start="1250" selection-end="1250" vertical-scroll-proportion="-12.423077">
+            <state line="15" column="93" selection-start="913" selection-end="913" vertical-scroll-proportion="-9.807693">
               <folding>
                 <element signature="n#style#0;n#div#0;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#div#1;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#div#2;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#div#3;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#div#4;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="style.css" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/client/css/style.css">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="143" column="29" selection-start="2674" selection-end="2674" vertical-scroll-proportion="0.39355993">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="player.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/node/classes/player.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="29" column="24" selection-start="524" selection-end="524" vertical-scroll-proportion="0.0">
-              <folding>
-                <element signature="n#!!doc" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="card.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/node/classes/card.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-              <folding>
-                <element signature="n#!!doc" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -97,7 +52,37 @@
       <file leaf-file-name="client.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/client/js/client.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="11" column="27" selection-start="248" selection-end="248" vertical-scroll-proportion="0.0">
+            <state line="17" column="1" selection-start="373" selection-end="373" vertical-scroll-proportion="0.0">
+              <folding>
+                <marker date="1362242362919" expanded="true" signature="869:881" placeholder="..." />
+                <marker date="1362242362919" expanded="true" signature="932:944" placeholder="..." />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="server.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/node/server.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="23" column="0" selection-start="626" selection-end="626" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="package.json" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/../hello/package.json">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="6" column="25" selection-start="164" selection-end="164" vertical-scroll-proportion="0.1824687">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="style.css" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/client/css/style.css">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="48" column="4" selection-start="987" selection-end="987" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -127,16 +112,18 @@
       <list>
         <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/client/client.js" />
-        <option value="$PROJECT_DIR$/node/server.js" />
         <option value="$PROJECT_DIR$/node/classes/card.js" />
         <option value="$PROJECT_DIR$/node/classes/player.js" />
         <option value="$PROJECT_DIR$/node/classes/table.js" />
         <option value="$PROJECT_DIR$/node/game.js" />
         <option value="$USER_HOME$/Desktop/test.html" />
         <option value="$PROJECT_DIR$/client/style.css" />
+        <option value="$PROJECT_DIR$/client/css/style.css" />
         <option value="$PROJECT_DIR$/client/basra.html" />
         <option value="$PROJECT_DIR$/client/js/client.js" />
-        <option value="$PROJECT_DIR$/client/css/style.css" />
+        <option value="$PROJECT_DIR$/../simpleServer/server.js" />
+        <option value="$PROJECT_DIR$/node/server.js" />
+        <option value="$PROJECT_DIR$/../hello/package.json" />
       </list>
     </option>
   </component>
@@ -329,7 +316,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1382" height="744" extended-state="7" />
+    <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -404,13 +391,6 @@
     <breakpoint-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/node/server.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="8" column="0" selection-start="257" selection-end="257" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/node/game.js">
       <provider selected="true" editor-type-id="text-editor">
         <state line="164" column="29" selection-start="3966" selection-end="3966" vertical-scroll-proportion="0.0">
@@ -421,7 +401,10 @@
     <entry file="file://$PROJECT_DIR$/client/js/client.js">
       <provider selected="true" editor-type-id="text-editor">
         <state line="27" column="28" selection-start="1033" selection-end="1033" vertical-scroll-proportion="0.0">
-          <folding />
+          <folding>
+            <marker date="1362242362919" expanded="true" signature="869:881" placeholder="..." />
+            <marker date="1362242362919" expanded="true" signature="932:944" placeholder="..." />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -464,39 +447,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/node/server.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="14" column="20" selection-start="414" selection-end="414" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$USER_HOME$/Desktop/test.html">
       <provider selected="true" editor-type-id="text-editor">
         <state line="3" column="0" selection-start="26" selection-end="1266" vertical-scroll-proportion="0.095684804">
           <folding>
             <element signature="n#style#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/node/game.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="69" column="5" selection-start="1865" selection-end="1865" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/basra.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="19" column="133" selection-start="1250" selection-end="1250" vertical-scroll-proportion="-12.423077">
-          <folding>
-            <element signature="n#style#0;n#div#0;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#1;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#2;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#3;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#4;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -508,16 +464,59 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/js/client.js">
+    <entry file="file://$PROJECT_DIR$/node/game.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="11" column="27" selection-start="248" selection-end="248" vertical-scroll-proportion="0.0">
+        <state line="69" column="5" selection-start="1865" selection-end="1865" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/client/css/style.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="143" column="29" selection-start="2674" selection-end="2674" vertical-scroll-proportion="0.39355993">
+        <state line="48" column="4" selection-start="987" selection-end="987" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/basra.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="15" column="93" selection-start="913" selection-end="913" vertical-scroll-proportion="-9.807693">
+          <folding>
+            <element signature="n#style#0;n#div#0;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#1;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#3;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#4;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../simpleServer/server.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="31" column="30" selection-start="942" selection-end="942" vertical-scroll-proportion="0.8175313">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/js/client.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="17" column="1" selection-start="373" selection-end="373" vertical-scroll-proportion="0.0">
+          <folding>
+            <marker date="1362242362919" expanded="true" signature="869:881" placeholder="..." />
+            <marker date="1362242362919" expanded="true" signature="932:944" placeholder="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/node/server.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="23" column="0" selection-start="626" selection-end="626" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../hello/package.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="6" column="25" selection-start="164" selection-end="164" vertical-scroll-proportion="0.1824687">
           <folding />
         </state>
       </provider>

@@ -37,9 +37,17 @@
     width: 72px;
     height: 103px;
     display: inline-block;
-    margin: -15px;
     border-radius: 4px;
     background-image: url("../images/card-deck-01.jpg");
+}
+.hor .card{
+    margin: 0 -15px;
+}
+.vert .card{
+    margin: -15px 0 ;
+}
+.hor .pname{
+    margin: 0;
 }
 .diams1{
     background-position: -1001px -29px;

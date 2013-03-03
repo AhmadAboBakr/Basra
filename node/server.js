@@ -7,7 +7,7 @@ app.set('view engine', 'html'); app.set('views', "../client");
 app.use(express.static('../client'));
 app.use(express.bodyParser());
 app.get('/start', function(req, res){
-    game= new gamelib.game();
+    game = new gamelib.game();
     res.send(game.init());
 });
 
