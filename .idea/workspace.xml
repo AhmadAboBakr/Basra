@@ -2,10 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0cebc0cb-b681-4668-b37f-5608e58737b1" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/client/js/client1.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/basra.html" afterPath="$PROJECT_DIR$/client/basra.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/css/style.css" afterPath="$PROJECT_DIR$/client/css/style.css" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/js/client.js" afterPath="$PROJECT_DIR$/client/js/client.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node/game.js" afterPath="$PROJECT_DIR$/node/game.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node/server.js" afterPath="$PROJECT_DIR$/node/server.js" />
     </list>
     <ignored path="Basra.iws" />
@@ -29,7 +31,7 @@
       <file leaf-file-name="game.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/node/game.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="69" column="5" selection-start="1865" selection-end="1865" vertical-scroll-proportion="0.0">
+            <state line="131" column="9" selection-start="3607" selection-end="3607" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -38,25 +40,8 @@
       <file leaf-file-name="basra.html" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/client/basra.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="15" column="93" selection-start="913" selection-end="913" vertical-scroll-proportion="-9.807693">
-              <folding>
-                <element signature="n#style#0;n#div#0;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#div#1;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#div#3;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#div#4;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="client.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/client/js/client.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="17" column="1" selection-start="373" selection-end="373" vertical-scroll-proportion="0.0">
-              <folding>
-                <marker date="1362242362919" expanded="true" signature="869:881" placeholder="..." />
-                <marker date="1362242362919" expanded="true" signature="932:944" placeholder="..." />
-              </folding>
+            <state line="20" column="137" selection-start="1287" selection-end="1287" vertical-scroll-proportion="-12.653846">
+              <folding />
             </state>
           </provider>
         </entry>
@@ -64,16 +49,34 @@
       <file leaf-file-name="server.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/node/server.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="23" column="0" selection-start="626" selection-end="626" vertical-scroll-proportion="0.0">
+            <state line="30" column="50" selection-start="1196" selection-end="1196" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="package.json" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/../hello/package.json">
+      <file leaf-file-name="s1.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/node/s1.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="6" column="25" selection-start="164" selection-end="164" vertical-scroll-proportion="0.1824687">
+            <state line="16" column="31" selection-start="454" selection-end="454" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="test.txt" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/node/test.txt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="0" column="15" selection-start="15" selection-end="15" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="client.js" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/client/js/client.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="97" column="0" selection-start="3221" selection-end="3221" vertical-scroll-proportion="0.9391771">
               <folding />
             </state>
           </provider>
@@ -82,16 +85,25 @@
       <file leaf-file-name="style.css" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/client/css/style.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="48" column="4" selection-start="987" selection-end="987" vertical-scroll-proportion="0.0">
+            <state line="49" column="1" selection-start="1111" selection-end="1111" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="README.md" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/README.md">
+      <file leaf-file-name="client.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/../sockets/client/js/client.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="9" selection-start="9" selection-end="9" vertical-scroll-proportion="0.0">
+            <state line="0" column="0" selection-start="0" selection-end="1573" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="client1.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/client/js/client1.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="19" column="0" selection-start="419" selection-end="1415" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -115,15 +127,15 @@
         <option value="$PROJECT_DIR$/node/classes/card.js" />
         <option value="$PROJECT_DIR$/node/classes/player.js" />
         <option value="$PROJECT_DIR$/node/classes/table.js" />
-        <option value="$PROJECT_DIR$/node/game.js" />
         <option value="$USER_HOME$/Desktop/test.html" />
         <option value="$PROJECT_DIR$/client/style.css" />
+        <option value="$PROJECT_DIR$/../simpleServer/server.js" />
+        <option value="$PROJECT_DIR$/../hello/package.json" />
+        <option value="$PROJECT_DIR$/node/game.js" />
         <option value="$PROJECT_DIR$/client/css/style.css" />
         <option value="$PROJECT_DIR$/client/basra.html" />
-        <option value="$PROJECT_DIR$/client/js/client.js" />
-        <option value="$PROJECT_DIR$/../simpleServer/server.js" />
         <option value="$PROJECT_DIR$/node/server.js" />
-        <option value="$PROJECT_DIR$/../hello/package.json" />
+        <option value="$PROJECT_DIR$/client/js/client.js" />
       </list>
     </option>
   </component>
@@ -160,7 +172,6 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -221,34 +232,18 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="images" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Basra" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Basra" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="client" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="css" />
+              <option name="myItemId" value="js" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../sockets" />
   </component>
   <component name="PublishConfig">
     <servers>
@@ -269,6 +264,10 @@
     </servers>
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\nookz\nodeProjects\Basra\node" />
+      <recent name="C:\nookz\nodeProjects\Basra\client\js" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\nookz\nodeProjects\Basra\client\css" />
       <recent name="C:\nookz\nodeProjects\Basra\client\js" />
@@ -281,7 +280,7 @@
     </configuration>
     <configuration default="true" type="JavascriptDebugSession" factoryName="Local">
       <JSDebuggerConfigurationSettings>
-        <option name="engineId" />
+        <option name="engineId" value="embedded" />
         <option name="fileUrl" />
       </JSDebuggerConfigurationSettings>
       <method />
@@ -323,7 +322,7 @@
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.25378788" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2659091" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
@@ -391,132 +390,114 @@
     <breakpoint-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/node/game.js">
+    <entry file="file://$PROJECT_DIR$/../hello/package.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="164" column="29" selection-start="3966" selection-end="3966" vertical-scroll-proportion="0.0">
+        <state line="6" column="21" selection-start="160" selection-end="160" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../sockets/node/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="7" column="0" selection-start="113" selection-end="310" vertical-scroll-proportion="-4.576923">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/js/client.js">
+    <entry file="file://$PROJECT_DIR$/../sockets/node/server.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="27" column="28" selection-start="1033" selection-end="1033" vertical-scroll-proportion="0.0">
+        <state line="10" column="0" selection-start="236" selection-end="502" vertical-scroll-proportion="0.3041145">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/Desktop/index.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="2" column="7" selection-start="53" selection-end="53" vertical-scroll-proportion="0.031894933">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://C:/xampp/htdocs/hc/fb.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="15" column="14" selection-start="549" selection-end="549" vertical-scroll-proportion="0.478424">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://C:/xampp/htdocs/hc/fb1.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="13" column="31" selection-start="349" selection-end="349" vertical-scroll-proportion="0.41463414">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://C:/xampp/htdocs/hc/facebookbuilder/protected/controllers/WidgetsController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="120" column="32" selection-start="3424" selection-end="3424" vertical-scroll-proportion="0.29831144">
           <folding>
-            <marker date="1362242362919" expanded="true" signature="869:881" placeholder="..." />
-            <marker date="1362242362919" expanded="true" signature="932:944" placeholder="..." />
+            <marker date="1362906265506" expanded="false" signature="2985:3010" placeholder="..." />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="jar://$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/lib/JavascriptLanguage.jar!/com/intellij/lang/javascript/index/predefined/ECMAScript.js2">
+    <entry file="file://$PROJECT_DIR$/node/test.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="19" column="29" selection-start="914" selection-end="914" vertical-scroll-proportion="0.3321739">
+        <state line="0" column="15" selection-start="15" selection-end="15" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/README.md">
+    <entry file="file://$PROJECT_DIR$/node/s1.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="9" selection-start="9" selection-end="9" vertical-scroll-proportion="0.0">
+        <state line="16" column="31" selection-start="454" selection-end="454" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/node/classes/card.js">
+    <entry file="file://$PROJECT_DIR$/../sockets/client/js/client.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/node/classes/player.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="29" column="24" selection-start="524" selection-end="524" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/node/classes/table.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="18" column="2" selection-start="372" selection-end="372" vertical-scroll-proportion="0.5474061">
+        <state line="0" column="0" selection-start="0" selection-end="1573" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/Desktop/test.html">
+    <entry file="file://$PROJECT_DIR$/client/js/client1.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="3" column="0" selection-start="26" selection-end="1266" vertical-scroll-proportion="0.095684804">
-          <folding>
-            <element signature="n#style#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/node/node_modules/express/node_modules/connect/node_modules/qs/test/browser/jquery.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="5363" column="4" selection-start="138434" selection-end="138434" vertical-scroll-proportion="0.33273703">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/node/game.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="69" column="5" selection-start="1865" selection-end="1865" vertical-scroll-proportion="0.0">
+        <state line="19" column="0" selection-start="419" selection-end="1415" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/client/css/style.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="48" column="4" selection-start="987" selection-end="987" vertical-scroll-proportion="0.0">
+        <state line="49" column="1" selection-start="1111" selection-end="1111" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/client/basra.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="15" column="93" selection-start="913" selection-end="913" vertical-scroll-proportion="-9.807693">
-          <folding>
-            <element signature="n#style#0;n#div#0;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#1;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#3;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#4;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
-          </folding>
+        <state line="20" column="137" selection-start="1287" selection-end="1287" vertical-scroll-proportion="-12.653846">
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../simpleServer/server.js">
+    <entry file="file://$PROJECT_DIR$/node/game.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="31" column="30" selection-start="942" selection-end="942" vertical-scroll-proportion="0.8175313">
+        <state line="131" column="9" selection-start="3607" selection-end="3607" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/node/server.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="30" column="50" selection-start="1196" selection-end="1196" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/client/js/client.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="17" column="1" selection-start="373" selection-end="373" vertical-scroll-proportion="0.0">
-          <folding>
-            <marker date="1362242362919" expanded="true" signature="869:881" placeholder="..." />
-            <marker date="1362242362919" expanded="true" signature="932:944" placeholder="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/node/server.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="23" column="0" selection-start="626" selection-end="626" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../hello/package.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="6" column="25" selection-start="164" selection-end="164" vertical-scroll-proportion="0.1824687">
+        <state line="97" column="0" selection-start="3221" selection-end="3221" vertical-scroll-proportion="0.9391771">
           <folding />
         </state>
       </provider>

@@ -16,19 +16,16 @@ game.init();
 
 io.sockets.on('connection',function(socket){
     socket.on('start', function (data) {
-        if(playerSessionIDMap.length < 4 && playerSessionIDMap.indexOf(socket.id)==-1){
+        if(playerSessionIDMap.length < 4){
             playerSessionIDMap.push(socket.id);
-            console.log(playerSessionIDMap.indexOf(socket.id));
-            io.sockets.socket(socket.id).emit('start',game.getStateFor(playerSessionIDMap.indexOf(socket.id)));
+            io.sockets.emit(game.getStateFor(playerSessionIDMap.indexOf(socket.id)));
         }
         else{
-            io.sockets.emit('start',game.getState());
+            io.sockets.emit(game.getState());
         }
     });
     socket.on('step', function (data) {
-        var step = game.step(playerSessionIDMap.indexOf(socket.id),data.card);
-        io.sockets.socket(socket.id).emit('updates',game.getStateFor(playerSessionIDMap.indexOf(socket.id)));
-        io.sockets.emit('tableChange',game.table);
+        io.sockets.emit('updates',game.step(data.player,data.card));
     });
 });
 

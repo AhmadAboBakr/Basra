@@ -27,7 +27,7 @@ Game = function () {
     this.table = new Table;
 
     /**
-     * Players
+     * Players, each player is {score,hand:[{color,number}*],name}
      */
     this.players = [];
 
@@ -155,7 +155,30 @@ Game = function () {
             }
         }
         return JSON.stringify({players:this.players,table:this.table});
-    }
-}
+    };
+
+    /**
+     * Gets the current game state
+     */
+    this.getState = function(){
+        return JSON.stringify({players:this.players,table:this.table});
+    };
+
+    /**
+     * Gets the current game state for one player, hides other players
+     */
+    this.getStateFor = function(id){
+        var players = {};
+        for(var i =0 ; i < 4 ; ++i){
+            if(i == id){
+                players['me'] = this.players[i];
+            }
+            else{
+                players[i] = ({hand:this.players[i].hand.length,score:this.players[i].score,name:this.players[i].name});
+            }
+        }
+        return JSON.stringify({players:players,table:this.table});
+    };
+};
 
 exports.game = Game;
