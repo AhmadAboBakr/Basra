@@ -48,10 +48,10 @@
     border-radius: 4px;
     background-image: url("../images/deckShape.jpg");
 }
-.hor .card{
+.hor .card, .hor .cardInvisible{
     margin: 0 -15px;
 }
-.vert .card{
+.vert .card, .vert .cardInvisible{
     margin: -15px 0 ;
 }
 .hor .pname{

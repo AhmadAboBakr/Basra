@@ -11,6 +11,7 @@ app.set('view engine', 'html'); app.set('views', "../client");
 app.use(express.static('../client'));
 app.use(express.bodyParser());
 
+//make a new game --should be done when new room is created, when we start implementing rooms
 game = new gamelib.game();
 game.init();
 
