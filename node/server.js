@@ -23,14 +23,17 @@ io.sockets.on('connection',function(socket){
             io.sockets.socket(socket.id).emit('start',game.getStateFor(playerSessionIDMap.indexOf(socket.id)));
         }
         else{
-            io.sockets.emit('start',game.getState());
+            io.sockets.emit('start',game.getStateOf(playerSessionIDMap.indexOf(socket.id)));
         }
     });
     socket.on('step', function (data) {
         var player = data.player !== -1 ? playerSessionIDMap.indexOf(socket.id) : -1;
         var step = game.step(player,data.card);
-        io.sockets.socket(socket.id).emit('updatePlayer',game.getStateFor(playerSessionIDMap.indexOf(socket.id)));
-        io.sockets.emit('update',{table:game.table,whoPlayed:playerSessionIDMap.indexOf(socket.id)});
+        var currentPlayer=game.getStateFor(playerSessionIDMap.indexOf(socket.id));
+        io.sockets.socket(socket.id).emit('updatePlayer',currentPlayer);
+        console.log(currentPlayer);
+        io.sockets.emit('update',{table:game.table,whoPlayed:{index:data.player,score:JSON.parse(currentPlayer).players.me.score}});
+
     });
 });
 

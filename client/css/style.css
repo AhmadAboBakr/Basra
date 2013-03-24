@@ -54,8 +54,8 @@
 .vert .card, .vert .cardInvisible{
     margin: -15px 0 ;
 }
-.hor .pname{
-    margin: 0;
+.vert .pinfo{
+    margin: 0 0 16px 0;
 }
 .diams1{
     background-position: -1001px -29px;

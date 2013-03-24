@@ -26,9 +26,9 @@ function updateTable(data){
     }
 }
 function updateMe(me,myNumber){
-    var html = "<p class='pname'>"+me.name +' : '+me.score+"</p>";
+    var html = "<div class = 'pinfo'><span class='name'>"+me.name +" :</span><span class='score'>"+me.score+"</span></div>";
     for(j=0;j<me.hand.length;j++){
-        var id="me_"+j;
+        var id=myNumber+"_"+j;
         html += '<div class="card '+me.hand[j].color+me.hand[j].number+'" id="'+id+'"></div>';
     }
     $($(".player")[myNumber]).html(html);
@@ -36,7 +36,7 @@ function updateMe(me,myNumber){
 function updateOthers(players){
     var html = "";
     players.forEach(function(player,index){
-        html = "<p class='pname'>"+player.name+' : '+player.score+"</p>";
+        html = "<div class='pinfo'><span class='name'>"+player.name +" :</span><span class='score'>"+player.score+"</span></div>";
         for(var j=0;j<player.hand;j++){
             html += '<div class="cardInvisible"></div>';
         }
@@ -44,6 +44,14 @@ function updateOthers(players){
     });
 }
 
+function updateLastPlayer(player){
+        console.log(player);
+        $($(".player")[player.index]).find(".pinfo .score").html(player.score);
+        $($(".player")[player.index]).find(".cardInvisible").first().remove();
+}
+function updateScore(player) {
+
+}
 function render(data){
     if(!data.hasOwnProperty("players"))return; //nothing to render
     var playerNum; //this player
@@ -64,9 +72,12 @@ function render(data){
 socket.emit('start');
 socket.on('start',function(data){ //begin
     render(JSON.parse(data));
+    console.log(data);
 });
 socket.on('update',function(data){ //not my turn, update the table, scores, and the hand of the player who just played
     updateTable(data.table);
+    updateLastPlayer(data.whoPlayed);
+
 });
 socket.on('updatePlayer', function (data) { //my turn, update everything
     render(JSON.parse(data));

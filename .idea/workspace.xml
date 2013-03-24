@@ -4,6 +4,7 @@
     <list default="true" id="0cebc0cb-b681-4668-b37f-5608e58737b1" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/basra.html" afterPath="$PROJECT_DIR$/client/basra.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/css/style.css" afterPath="$PROJECT_DIR$/client/css/style.css" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/js/client.js" afterPath="$PROJECT_DIR$/client/js/client.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node/server.js" afterPath="$PROJECT_DIR$/node/server.js" />
     </list>
@@ -28,27 +29,37 @@
       <file leaf-file-name="game.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/node/game.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="10" column="0" selection-start="287" selection-end="287" vertical-scroll-proportion="0.0">
+            <state line="179" column="29" selection-start="5199" selection-end="5213" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="basra.html" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="basra.html" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/client/basra.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="10" column="57" selection-start="446" selection-end="446" vertical-scroll-proportion="-6.5384617">
+            <state line="9" column="0" selection-start="231" selection-end="231" vertical-scroll-proportion="0.20109689">
               <folding>
-                <element signature="n#style#0;n#div#0;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#div#3;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#div#4;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="server.js" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="server.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/node/server.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="35" column="0" selection-start="1414" selection-end="1414" vertical-scroll-proportion="0.72629696">
+            <state line="28" column="7" selection-start="1057" selection-end="1057" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="s1.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/node/s1.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="16" column="31" selection-start="454" selection-end="454" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -57,7 +68,7 @@
       <file leaf-file-name="client.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/client/js/client.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="80" column="21" selection-start="2443" selection-end="2443" vertical-scroll-proportion="0.0">
+            <state line="67" column="27" selection-start="2192" selection-end="2192" vertical-scroll-proportion="-13.964286">
               <folding />
             </state>
           </provider>
@@ -66,16 +77,7 @@
       <file leaf-file-name="style.css" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/client/css/style.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="55" column="1" selection-start="1226" selection-end="1226" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="client.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/../sockets/client/js/client.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="23" column="28" selection-start="0" selection-end="1573" vertical-scroll-proportion="0.0">
+            <state line="57" column="12" selection-start="1253" selection-end="1257" vertical-scroll-proportion="-9.142858">
               <folding />
             </state>
           </provider>
@@ -84,7 +86,7 @@
       <file leaf-file-name="client1.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/client/js/client1.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="19" column="0" selection-start="419" selection-end="1415" vertical-scroll-proportion="0.0">
+            <state line="40" column="11" selection-start="1388" selection-end="1388" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -110,23 +112,23 @@
         <option value="$PROJECT_DIR$/client/style.css" />
         <option value="$PROJECT_DIR$/../simpleServer/server.js" />
         <option value="$PROJECT_DIR$/../hello/package.json" />
-        <option value="$PROJECT_DIR$/node/game.js" />
         <option value="$USER_HOME$/Desktop/test.html" />
-        <option value="$PROJECT_DIR$/client/css/style.css" />
         <option value="$USER_HOME$/Desktop/voice_status.php" />
         <option value="$USER_HOME$/Desktop/sms_status.php" />
         <option value="$USER_HOME$/Desktop/voice.php" />
-        <option value="$PROJECT_DIR$/client/basra.html" />
         <option value="$PROJECT_DIR$/client/js/client.js" />
+        <option value="$PROJECT_DIR$/node/game.js" />
         <option value="$PROJECT_DIR$/node/server.js" />
+        <option value="$PROJECT_DIR$/client/css/style.css" />
+        <option value="$PROJECT_DIR$/client/basra.html" />
       </list>
     </option>
   </component>
   <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" />
   <component name="ProjectFrameBounds">
-    <option name="x" value="-8" />
-    <option name="y" value="-8" />
-    <option name="width" value="1382" />
+    <option name="x" value="65" />
+    <option name="y" value="24" />
+    <option name="width" value="1301" />
     <option name="height" value="744" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
@@ -226,23 +228,12 @@
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="C:/xampp/htdocs/hc/l4t/laravel-develop" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
   </component>
   <component name="PublishConfig">
     <servers>
-      <server id="64d2cf21-9b3b-46ba-87e4-42b8737ab111">
-        <serverdata>
-          <mappings>
-            <mapping local="$PROJECT_DIR$" />
-          </mappings>
-        </serverdata>
-      </server>
-      <server id="b7e9e24c-6b4d-4f96-b047-38265789a678">
-        <serverdata>
-          <mappings>
-            <mapping local="$PROJECT_DIR$" />
-          </mappings>
-        </serverdata>
+      <server id="b129bbb2-ab3e-4cd8-a6f5-e834f14f0ca7">
+        <serverdata />
       </server>
     </servers>
   </component>
@@ -258,6 +249,14 @@
     </key>
   </component>
   <component name="RunManager">
+    <configuration default="true" type="DartUnitRunConfigurationType" factoryName="DartUnit">
+      <option name="VMOptions" />
+      <option name="arguments" />
+      <option name="filePath" />
+      <option name="scope" value="ALL" />
+      <option name="testName" />
+      <method />
+    </configuration>
     <configuration default="true" type="NodeJSConfigurationType" factoryName="Node.js" working-dir="$PROJECT_DIR$" coffeescript-run="false">
       <method />
     </configuration>
@@ -318,14 +317,14 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
+    <frame x="65" y="24" width="1301" height="744" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32876712" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.21742424" sideWeight="0.6712329" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.22177742" sideWeight="0.6712329" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
@@ -390,19 +389,45 @@
     <option name="FILE_HISTORY_SPLITTER_PROPORTION" value="0.6" />
   </component>
   <component name="XDebuggerManager">
-    <breakpoint-manager />
+    <breakpoint-manager>
+      <option name="time" value="2" />
+    </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/client/css/style.css">
+    <entry file="file://$PROJECT_DIR$/node/game.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="55" column="1" selection-start="1226" selection-end="1226" vertical-scroll-proportion="0.0">
+        <state line="10" column="0" selection-start="287" selection-end="287" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../sockets/client/js/client.js">
+    <entry file="file://$PROJECT_DIR$/client/basra.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="23" column="28" selection-start="0" selection-end="1573" vertical-scroll-proportion="0.0">
+        <state line="10" column="57" selection-start="446" selection-end="446" vertical-scroll-proportion="0.0">
+          <folding>
+            <element signature="n#style#0;n#div#3;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#4;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/node/server.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="35" column="0" selection-start="1414" selection-end="1414" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/js/client.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="80" column="21" selection-start="2443" selection-end="2443" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/css/style.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="55" column="1" selection-start="1226" selection-end="1226" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
@@ -414,9 +439,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://C:/xampp/htdocs/hc/facebookbuilder/protected/controllers/WidgetsController.php">
+    <entry file="file://$PROJECT_DIR$/client/css/style.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="120" column="32" selection-start="3424" selection-end="3424" vertical-scroll-proportion="0.29831144" />
+        <state line="55" column="1" selection-start="1226" selection-end="1226" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/client/js/client1.js">
@@ -433,67 +460,53 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/node/s1.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="16" column="31" selection-start="454" selection-end="454" vertical-scroll-proportion="0.48658317">
+        <state line="16" column="31" selection-start="454" selection-end="454" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/css/style.css">
+    <entry file="file://$PROJECT_DIR$/client/js/client1.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="55" column="1" selection-start="1226" selection-end="1226" vertical-scroll-proportion="0.0">
+        <state line="40" column="11" selection-start="1388" selection-end="1388" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/dart/basra.dart">
+    <entry file="file://$PROJECT_DIR$/client/js/client.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dart/game.dart">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="125" column="0" selection-start="3229" selection-end="3229" vertical-scroll-proportion="0.9391771" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dart/helper.dart">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="7" column="31" selection-start="142" selection-end="142" vertical-scroll-proportion="0.21288015" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../sockets/client/js/client.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="23" column="28" selection-start="0" selection-end="1573" vertical-scroll-proportion="0.0">
+        <state line="67" column="27" selection-start="2192" selection-end="2192" vertical-scroll-proportion="-13.964286">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/node/game.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="10" column="0" selection-start="287" selection-end="287" vertical-scroll-proportion="0.0">
+        <state line="179" column="29" selection-start="5199" selection-end="5213" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/basra.html">
+    <entry file="file://$PROJECT_DIR$/client/css/style.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="10" column="57" selection-start="446" selection-end="446" vertical-scroll-proportion="-6.5384617">
-          <folding>
-            <element signature="n#style#0;n#div#0;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/js/client.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="80" column="21" selection-start="2443" selection-end="2443" vertical-scroll-proportion="0.0">
+        <state line="57" column="12" selection-start="1253" selection-end="1257" vertical-scroll-proportion="-9.142858">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/node/server.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="35" column="0" selection-start="1414" selection-end="1414" vertical-scroll-proportion="0.72629696">
+        <state line="28" column="7" selection-start="1057" selection-end="1057" vertical-scroll-proportion="0.0">
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/basra.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="9" column="0" selection-start="231" selection-end="231" vertical-scroll-proportion="0.20109689">
+          <folding>
+            <element signature="n#style#0;n#div#3;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#4;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
