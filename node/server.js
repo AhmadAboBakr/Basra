@@ -27,9 +27,10 @@ io.sockets.on('connection',function(socket){
         }
     });
     socket.on('step', function (data) {
-        var step = game.step(playerSessionIDMap.indexOf(socket.id),data.card);
-        io.sockets.socket(socket.id).emit('updates',game.getStateFor(playerSessionIDMap.indexOf(socket.id)));
-        io.sockets.emit('tableChange',game.table);
+        var player = data.player !== -1 ? playerSessionIDMap.indexOf(socket.id) : -1;
+        var step = game.step(player,data.card);
+        io.sockets.socket(socket.id).emit('updatePlayer',game.getStateFor(playerSessionIDMap.indexOf(socket.id)));
+        io.sockets.emit('update',{table:game.table,whoPlayed:playerSessionIDMap.indexOf(socket.id)});
     });
 });
 

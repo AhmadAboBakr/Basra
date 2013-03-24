@@ -16,7 +16,7 @@ function updateTable(data){
         });
     }
 
-    //fix table
+    //prevent the cards from overflowing
     var numOfCardsOnTable = table.children("div").length;
     if(numOfCardsOnTable < 7){
         table.find(".card").css('margin','5px');
@@ -45,15 +45,14 @@ function updateOthers(players){
 }
 
 function render(data){
-    if(!data.hasOwnProperty("players"))return;
-    var html;
-    var playerNum;
+    if(!data.hasOwnProperty("players"))return; //nothing to render
+    var playerNum; //this player
     var others = [];
     for(var i=0 ; i<4 ; ++i){
-        if(data.players[i]){
+        if(data.players[i]){ //this player is called 'me' , all the others are numbered
             others[i] = data.players[i];
         }
-        else{
+        else{ //found the 'me' player, set playerNum to it's number
             playerNum = i;
         }
     }
@@ -63,17 +62,21 @@ function render(data){
 }
 
 socket.emit('start');
-socket.on('start',function(data){
+socket.on('start',function(data){ //begin
     render(JSON.parse(data));
 });
-socket.on('tableChange',function(data){
-    updateTable(data);
+socket.on('update',function(data){ //not my turn, update the table, scores, and the hand of the player who just played
+    updateTable(data.table);
 });
-socket.on('updates', function (data) {
+socket.on('updatePlayer', function (data) { //my turn, update everything
     render(JSON.parse(data));
 });
 
 $(document).on("click",".card",function(){
     var id_array= $(this).attr("id").split("_");
     socket.emit('step', {player:id_array[0],card:id_array[1]});
+});
+
+$(document).on("click","#next",function(){
+    socket.emit('step', {player:-1,card:-1});
 });
