@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Basra</title>
+    <script src="js/jquery-1.9.0.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+</head>
+<body>
+<div>
+    <div id="rooms"></div>
+    <a href="#" id="create_room">create room</a>
+</div>
+<script>
+    var socket = io.connect('http://localhost:3000');
+    $(document).ready(function(){
+        socket.emit('get_rooms');
+        socket.on('rooms',function(data){
+            var rooms = '';
+            for(var room in data){
+                rooms += "<div style='background: tomato;width: 150px;float: left;margin: 20px;padding: 10px;'>Room ID:"+room+"<br><a href='localhost:3000/basra?room="+room+"'>Join</a></div>";
+            }
+            rooms += "<div style='clear: both;'></div>";
+            $("#rooms").html(rooms);
+            console.log(data);
+        });
+        $("#create_room").click(function(e){
+            e.preventDefault();
+            socket.emit('create_room');
+            socket.on('room_created', function (data) {
+                window.navigator = "localhost:3000/basra?room="+data.room_id;
+            });
+            return false;
+        })
+    });
+</script>
+</body>
+</html>

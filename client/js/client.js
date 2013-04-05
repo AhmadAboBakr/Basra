@@ -7,6 +7,14 @@
 var game = {};
 var socket = io.connect('http://localhost:3000');
 
+function $_GET(q) {
+    var vars = {};
+    var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
+        vars[key] = value;
+    });
+    return vars[q];
+}
+
 function updateTable(data){
     var table =$("#table");
     table.html("");
@@ -70,7 +78,7 @@ function render(data){
         updateMe(data.players['me'],playerNum);
 }
 
-socket.emit('start');
+socket.emit('start',{room:$_GET('room')});
 socket.on('start',function(data){ //begin
     render(JSON.parse(data));
     console.log(data);
