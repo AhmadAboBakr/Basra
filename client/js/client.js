@@ -64,9 +64,10 @@ function render(data){
             playerNum = i;
         }
     }
-    updateOthers(others);
-    updateMe(data.players['me'],playerNum);
     updateTable(data.table);
+    updateOthers(others);
+    if(typeof playerNum !== "undefined")
+        updateMe(data.players['me'],playerNum);
 }
 
 socket.emit('start');
@@ -80,7 +81,8 @@ socket.on('update',function(data){ //not my turn, update the table, scores, and 
 
 });
 socket.on('updatePlayer', function (data) { //my turn, update everything
-    render(JSON.parse(data));
+    if(data !== -1)  // if i played in MY turn
+        render(JSON.parse(data));
 });
 
 $(document).on("click",".card",function(){

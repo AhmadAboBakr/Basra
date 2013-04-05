@@ -139,7 +139,7 @@ Game = function () {
             this.turn %= 4;
         }
         else if( playerId != this.turn ){  //i.e NOT YOUR TURN
-            return JSON.stringify({});
+            return -1;
         }
         else{
             var player=this.players[ playerId ];
@@ -166,6 +166,8 @@ Game = function () {
 
     /**
      * Gets the current game state for one player, hides other players
+     * @param id
+     * @return {*}
      */
     this.getStateFor = function(id){
         var players = {};
@@ -176,6 +178,19 @@ Game = function () {
             else{
                 players[i] = ({hand:this.players[i].hand.length,score:this.players[i].score,name:this.players[i].name});
             }
+        }
+        return JSON.stringify({players:players,table:this.table});
+    };
+
+    /**
+     * Gets the current game state for a new watcher,
+     * just showing number of cards, scores, names for each player, and table cards
+     * @return {*}
+     */
+    this.getStateForWatcher = function(){
+        var players = {};
+        for(var i =0 ; i < 4 ; ++i){
+            players[i] = ({hand:this.players[i].hand.length,score:this.players[i].score,name:this.players[i].name});
         }
         return JSON.stringify({players:players,table:this.table});
     };
