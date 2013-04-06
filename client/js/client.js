@@ -6,6 +6,7 @@
  */
 var game = {};
 var socket = io.connect('http://localhost:3000');
+var watcher = false;
 
 function $_GET(q) {
     var vars = {};
@@ -53,7 +54,6 @@ function updateOthers(players){
 }
 
 function updateLastPlayer(player){
-        console.log(player);
         $($(".player")[player.index]).find(".pinfo .score").html(player.score);
         $($(".player")[player.index]).find(".cardInvisible").first().remove();
 }
@@ -74,8 +74,14 @@ function render(data){
     }
     updateTable(data.table);
     updateOthers(others);
-    if(typeof playerNum !== "undefined")
+    if(typeof playerNum !== "undefined") //i'm not a watcher
+    {
+        watcher = false;
         updateMe(data.players['me'],playerNum);
+    }
+    else{
+        watcher = true;
+    }
 }
 
 socket.emit('start',{room:$_GET('room')});
@@ -91,6 +97,10 @@ socket.on('update',function(data){ //not my turn, update the table, scores, and 
 socket.on('updatePlayer', function (data) { //my turn, update everything
     if(data !== -1)  // if i played in MY turn
         render(JSON.parse(data));
+});
+socket.on('player_disconnected', function (data) { //a player left the game
+    var player_id = data.player_id;
+
 });
 
 $(document).on("click",".card",function(){

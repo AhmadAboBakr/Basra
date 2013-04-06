@@ -112,7 +112,7 @@ Game = function () {
 
     this.init = function () {
         this.initDeck();
-        var names = ["7amada", "7amooda", "abo7meed", "a7mad"];
+        var names = ["machine", "machine", "machine", "machine"];
         for (var i = 0; i < 4; ++i) {
             var pl = new Npc(names[i]);
             this.players.push(pl);

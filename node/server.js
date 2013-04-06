@@ -53,9 +53,7 @@ function add_player(socket,room){
         player_id = rooms[room].players.length - 1;
     }
 
-    if(player_id !== -1){
-        socket.join(room);
-    }
+    socket.join(room);
 
     return player_id;
 }
@@ -138,7 +136,7 @@ io.sockets.on('connection',function(socket){
         {
             var p_index = rooms[room_id].players.indexOf(socket.id);
             delete rooms[room_id].players[p_index];
-            io.sockets.in(room_id).emit('player_disconnected');
+            io.sockets.in(room_id).emit('player_disconnected',{player_id:p_index});
         }
     });
 });
