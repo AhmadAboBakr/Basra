@@ -6,20 +6,21 @@ var server = require('http').createServer(app);
 var io = require('socket.io').listen(server);
 io.set('log level', 1);
 
+/*var SessionSockets = require('session.socket.io')
+    , sessionSockets = new SessionSockets(io, sessionStore, cookieParser);*/
+
 app.set('view engine', 'html'); app.set('views', "../client");
 app.use(express.static('../client'));
 app.use(express.bodyParser());
 
 var rooms = {};
 
-function make_id()
-{
+function make_id(){
     var text = "";
     var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 
     for( var i=0; i < 10; i++ )
         text += possible.charAt(Math.floor(Math.random() * possible.length));
-
     return text;
 }
 
@@ -47,7 +48,7 @@ function add_player(socket,room){
         }
     }
 
-    //if room was never full, is not full, and there were no empty places to fill, append the player to the end
+    //if room was never full, is not full, and there are no empty places to fill, append the player to the end
     if(rooms[room].players.length < 4 && player_id === -1){
         rooms[room].players.push(socket_id);
         player_id = rooms[room].players.length - 1;
@@ -67,7 +68,6 @@ var isEmpty = function(obj) {
  * @return {Object}
  */
 function get_player(socket_id){
-
     var rid = -1;
     var pid = -1;
 
@@ -92,7 +92,7 @@ io.sockets.on('connection',function(socket){
         var room_id = make_id();
         game.init();
         rooms[room_id] = {game:game,players:[]};
-        io.sockets.socket(socket.id).emit('room_created',{room_id:room_id});
+        io.sockets.emit('room_created',{room_id:room_id});
     });
 
     socket.on('start', function (data) {
