@@ -27,6 +27,7 @@
             e.preventDefault();
             socket.emit('create_room');
             socket.on('room_created', function (data) {
+                socket.emit('get_rooms');
                 window.navigator = "localhost:3000/basra?room="+data.room_id;
             });
             return false;
