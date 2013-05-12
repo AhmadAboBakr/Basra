@@ -87,6 +87,10 @@ socket.on('start',function(data){ //begin
     render(JSON.parse(data));
     console.log(data);
 });
+socket.on('invalid_room',function(){ //begin
+    window.location.href ='/rooms';
+});
+
 socket.on('update',function(data){ //not my turn, update the table, scores, and the hand of the player who just played
     updateTable(data.table);
     updateLastPlayer(data.whoPlayed);

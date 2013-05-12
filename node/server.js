@@ -94,15 +94,22 @@ io.sockets.on('connection',function(socket){
         io.sockets.emit('room_created',{room_id:room_id,name:data});
     });
     socket.on('start', function (data) {
+        console.log(data.room);
+        
+        if(typeof data.room == 'undefined' || typeof rooms[data.room] == 'undefined'){
+            io.sockets.socket(socket.id).emit('invalid_room');
+        }
+        else {
         var player_number = add_player(socket,data.room);
-        var game = rooms[data.room].game;
-        if( player_number > -1 ){
-            io.sockets.socket(socket.id).emit('start',game.getStateFor(player_number));
+            var game = rooms[data.room].game;
+            if( player_number > -1 ){
+                io.sockets.socket(socket.id).emit('start',game.getStateFor(player_number));
+            }
+            else if( player_number === -1){
+                io.sockets.socket(socket.id).emit('start',game.getStateForWatcher());
+            }
+            //else if player_num === -2 , do nothing
         }
-        else if( player_number === -1){
-            io.sockets.socket(socket.id).emit('start',game.getStateForWatcher());
-        }
-        //else if player_num === -2 , do nothing
     });
     socket.on('step', function (data) {
 
@@ -136,6 +143,14 @@ io.sockets.on('connection',function(socket){
             delete rooms[room_id].players[p_index];
             io.sockets.in(room_id).emit('player_disconnected',{player_id:p_index});
         }
+    });
+});
+
+
+
+app.get('/',function(req, res){
+    fs.readFile(__dirname + '/../client/rooms.html', 'utf8', function(err, text){
+        res.send(text);
     });
 });
 
