@@ -154,6 +154,9 @@ Game = function () {
                     this.turn=0;
             }
         }
+        if(this.players[3].hand.length==0){
+            this.deal();
+        }
         return JSON.stringify({players:this.players,table:this.table});
     };
 

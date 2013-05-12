@@ -57,9 +57,7 @@ function updateLastPlayer(player){
         $($(".player")[player.index]).find(".pinfo .score").html(player.score);
         $($(".player")[player.index]).find(".cardInvisible").first().remove();
 }
-function updateScore(player) {
 
-}
 function render(data){
     if(!data.hasOwnProperty("players"))return; //nothing to render
     var playerNum; //this player
@@ -100,7 +98,6 @@ socket.on('updatePlayer', function (data) { //my turn, update everything
 });
 socket.on('player_disconnected', function (data) { //a player left the game
     var player_id = data.player_id;
-
 });
 
 $(document).on("click",".card",function(){
