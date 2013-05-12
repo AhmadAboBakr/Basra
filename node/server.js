@@ -91,8 +91,8 @@ io.sockets.on('connection',function(socket){
         var game = new gamelib.game();
         var room_id = make_id();
         game.init();
-        rooms[room_id] = {game:game,players:[]};
-        io.sockets.emit('room_created',{room_id:room_id});
+        rooms[room_id] = {game:game,players:[],name:data};
+        io.sockets.emit('room_created',{room_id:room_id,name:data});
     });
 
     socket.on('start', function (data) {
