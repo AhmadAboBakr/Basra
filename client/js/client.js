@@ -1,6 +1,5 @@
 /**
- * Created with JetBrains PhpStorm.
- * User: Nookz
+ * @author Nookz
  * Date: 2/22/13
  * Time: 11:39 PM
  */
