@@ -8,5 +8,5 @@ basra Game
 
 Todo
 =====
-seperate the logic from the engine
+seperate the logic from the engine ( probably not )
 bug fixes
