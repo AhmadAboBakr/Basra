@@ -151,4 +151,10 @@ app.get('/basra',function(req, res){
         res.send(text);
     });
 });
+
+app.get('/',function(req, res){
+    fs.readFile(__dirname + '/../client/rooms.html', 'utf8', function(err, text){
+        res.send(text);
+    });
+});
 server.listen(3000);

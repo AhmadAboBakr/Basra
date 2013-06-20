@@ -17,7 +17,7 @@
         socket.on('rooms',function(data){
             var rooms = '';
             for(var room in data){
-                rooms += "<div style='background: tomato;width: 150px;float: left;margin: 20px;padding: 10px;'>Room ID:"+room+"<br><a href='localhost:3000/basra?room="+room+"'>Join</a></div>";
+                rooms += "<div style='background: tomato;width: 150px;float: left;margin: 20px;padding: 10px;'>Room ID:"+room+"<br><a href='http://localhost:3000/basra?room="+room+"'>Join</a></div>";
             }
             rooms += "<div style='clear: both;'></div>";
             $("#rooms").html(rooms);
@@ -28,7 +28,7 @@
             socket.emit('create_room');
             socket.on('room_created', function (data) {
                 socket.emit('get_rooms');
-                window.navigator = "localhost:3000/basra?room="+data.room_id;
+//                document.location = "http://localhost:3000/basra?room="+data.room_id;
             });
             return false;
         })
