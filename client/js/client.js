@@ -1,6 +1,5 @@
 /**
- * Created with JetBrains PhpStorm.
- * User: Nookz
+ * @author Nookz
  * Date: 2/22/13
  * Time: 11:39 PM
  */
@@ -57,9 +56,7 @@ function updateLastPlayer(player){
         $($(".player")[player.index]).find(".pinfo .score").html(player.score);
         $($(".player")[player.index]).find(".cardInvisible").first().remove();
 }
-function updateScore(player) {
 
-}
 function render(data){
     if(!data.hasOwnProperty("players"))return; //nothing to render
     var playerNum; //this player
@@ -89,6 +86,10 @@ socket.on('start',function(data){ //begin
     render(JSON.parse(data));
     console.log(data);
 });
+socket.on('invalid_room',function(){ //begin
+    window.location.href ='/rooms';
+});
+
 socket.on('update',function(data){ //not my turn, update the table, scores, and the hand of the player who just played
     updateTable(data.table);
     updateLastPlayer(data.whoPlayed);
@@ -100,7 +101,6 @@ socket.on('updatePlayer', function (data) { //my turn, update everything
 });
 socket.on('player_disconnected', function (data) { //a player left the game
     var player_id = data.player_id;
-
 });
 
 $(document).on("click",".card",function(){

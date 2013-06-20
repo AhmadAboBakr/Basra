@@ -7,8 +7,11 @@
 </head>
 <body>
 <div>
-    <div id="rooms"></div>
-    <a href="#" id="create_room">create room</a>
+    <div id="rooms">No rooms available</div>
+    <form>
+        <input id="room_name" placeholder="room name" required=true>
+        <button type="submit" name="create" id="create_room" >create</button>
+    </form>
 </div>
 <script>
     var socket = io.connect('http://localhost:3000');
@@ -17,18 +20,25 @@
         socket.on('rooms',function(data){
             var rooms = '';
             for(var room in data){
-                rooms += "<div style='background: tomato;width: 150px;float: left;margin: 20px;padding: 10px;'>Room ID:"+room+"<br><a href='http://localhost:3000/basra?room="+room+"'>Join</a></div>";
+                console.log(data[room]);
+                rooms += "<div style='background: tomato;width: 150px;float: left;margin: 20px;padding: 10px;'>Room Name: " + data[room].name+"<br><a href='/basra?room="+room+"'>Join</a></div>";
             }
-            rooms += "<div style='clear: both;'></div>";
+            if(rooms=='')rooms="No rooms available create a new one";
+            else rooms += "<div style='clear: both;'></div>";
             $("#rooms").html(rooms);
-            console.log(data);
         });
         $("#create_room").click(function(e){
             e.preventDefault();
-            socket.emit('create_room');
+            data=document.getElementById("room_name").value;
+            if(data==""){
+                document.getElementById("room_name").placeholder="room name required";
+                return;
+            }
+            document.getElementById("room_name").placeholder="Room Name";
+            socket.emit('create_room',data);
             socket.on('room_created', function (data) {
                 socket.emit('get_rooms');
-//                document.location = "http://localhost:3000/basra?room="+data.room_id;
+                window.navigator = "/basra?room="+data.room_id;
             });
             return false;
         })
