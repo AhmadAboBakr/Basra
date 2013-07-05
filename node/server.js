@@ -25,6 +25,7 @@ function make_id(){
 }
 
 /**
+ * Adds a player to a room
  * returns -1 if room is full, -2 for existing players, player number for a successfull new player
  * @param socket
  * @param room room id
@@ -94,7 +95,6 @@ io.sockets.on('connection',function(socket){
         io.sockets.emit('room_created',{room_id:room_id,name:data});
     });
     socket.on('start', function (data) {
-        console.log(data.room);
         
         if(typeof data.room == 'undefined' || typeof rooms[data.room] == 'undefined'){
             io.sockets.socket(socket.id).emit('invalid_room');
@@ -126,7 +126,13 @@ io.sockets.on('connection',function(socket){
         io.sockets.socket(socket.id).emit('updatePlayer',currentPlayer);
         io.sockets.in(room).emit(
             'update',
-            {table:game.table,whoPlayed:{index:data.player,score:JSON.parse(currentPlayer).players.me.score}}
+            {
+                table      : game.table,
+                whoPlayed  : {
+                    index : data.player,
+                    score : JSON.parse(currentPlayer).players.me.score
+                }
+            }
         );
     });
 
