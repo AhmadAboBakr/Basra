@@ -1,23 +1,18 @@
 var glob = require('./init.js');
+var rooms = glob.rooms;
 var gamelib = glob.gamelib;
-var express = glob.express;
-var fs = glob.fs;
-var app = glob.app;
-var server = glob.server;
 var io = glob.io;
 
-var rooms = glob.rooms;
 
-
-io.sockets.on('connection',function(socket){
-    socket.on('create_room',function(data){
+exports.create_room_handler = function(data,socket){
         var game = new gamelib.game();
         var room_id = glob.helper.util.make_id();
         game.init();
         rooms[room_id] = {game:game,players:[],name:data};
         io.sockets.emit('room_created',{room_id:room_id,name:data});
-    });
-    socket.on('start', function (data) {
+};
+
+exports.start_handler = function (data,socket) {
         
         if(typeof data.room == 'undefined' || typeof rooms[data.room] == 'undefined'){
             io.sockets.socket(socket.id).emit('invalid_room');
@@ -33,8 +28,8 @@ io.sockets.on('connection',function(socket){
             }
             //else if player_num === -2 , do nothing
         }
-    });
-    socket.on('step', function (data) {
+}
+exports.step_handler = function (data,socket) {
 
         var player_data = glob.helper.game.get_player(socket.id);
         var player = data.player !== -1 ? player_data.player_id: -1;
@@ -57,24 +52,4 @@ io.sockets.on('connection',function(socket){
                 }
             }
         );
-    });
-
-
-    socket.on('get_rooms', function () {
-        io.sockets.socket(socket.id).emit('rooms',rooms);
-    });
-    socket.on('disconnect', function () {
-        var player = glob.helper.game.get_player(socket.id);
-        var room_id = player.room_id;
-        if(room_id !== -1)
-        {
-            var p_index = rooms[room_id].players.indexOf(socket.id);
-            delete rooms[room_id].players[p_index];
-            io.sockets.in(room_id).emit('player_disconnected',{player_id:p_index});
-        }
-    });
-});
-
-
-require('./routing.js');
-server.listen(3000);
+    }
