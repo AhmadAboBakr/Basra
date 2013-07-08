@@ -1,3 +1,10 @@
+/**
+* @author: Ahmed Maged
+* Date: 7/7/13 - 9:39 PM
+*
+* This file contains utility helpers, helpers that are not specific to anything
+*
+*/
 var glob = require('../init.js');
 
 exports.make_id = function(){

@@ -1,3 +1,10 @@
+/**
+* @author: Ahmed Maged
+* Date: 7/7/13 - 9:39 PM
+*
+* This file contains the game specific helpers.
+*
+*/
 var glob = require('../init.js');
 var rooms = glob.rooms;
 
