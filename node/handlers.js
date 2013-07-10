@@ -20,16 +20,20 @@ exports.create_room_handler = function(data,socket){
     io.sockets.emit('room_created',{room_id:room_id,name:data});
 };
 
-exports.start_handler = function (data,socket) {
+exports.start_handler = function (data,socket) {  //new player wants to join
         
     if(typeof data.room == 'undefined' || typeof rooms[data.room] == 'undefined'){
         io.sockets.socket(socket.id).emit('invalid_room');
     }
     else {
-    var player_number = glob.helper.game.add_player(socket,data.room);
+        var player_number = glob.helper.game.add_player(socket,data.room);
         var game = rooms[data.room].game;
+        var room = rooms[data.room];
         if( player_number > -1 ){
             io.sockets.socket(socket.id).emit('start',game.getStateFor(player_number));
+            for (var i = room.players.length - 1; i >= 0; i--) {
+                io.sockets.socket(room.players[i]).emit('start',game.getStateFor(i));
+            };
         }
         else if( player_number === -1){
             io.sockets.socket(socket.id).emit('start',game.getStateForWatcher());
@@ -37,7 +41,7 @@ exports.start_handler = function (data,socket) {
         //else if player_num === -2 , do nothing
     }
 }
-exports.step_handler = function (data,socket) {
+exports.step_handler = function (data,socket) { //card played, or play a card
 
     var player_data = glob.helper.game.get_player(socket.id);
     var player = data.player !== -1 ? player_data.player_id: -1;
@@ -64,7 +68,7 @@ exports.step_handler = function (data,socket) {
 exports.get_rooms_handler = function (data, socket){
     io.sockets.socket(socket.id).emit('rooms',rooms);
 }
-exports.disconnect_handler = function (data, socket) {
+exports.disconnect_handler = function (data, socket) { //player leaves, clear his place and get him out of here
     var player = glob.helper.game.get_player(socket.id);
     var room_id = player.room_id;
     if(room_id !== -1)

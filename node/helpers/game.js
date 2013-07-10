@@ -39,6 +39,7 @@ exports.add_player = function(socket,room){
         player_id = rooms[room].players.length - 1;
     }
 
+    rooms[room].game.players[player_id].name = socket_id;
     socket.join(room);
 
     return player_id;
