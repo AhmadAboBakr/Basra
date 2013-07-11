@@ -17,9 +17,16 @@ exports.app.set('view engine', 'html'); exports.app.set('views', "../client");
 exports.app.use(exports.express.static('../client'));
 exports.app.use(exports.express.bodyParser());
 
+/**
+* This contains all rooms, players inside are just socket ids indexed by player position
+*/
 exports.rooms = {};
 var helper = {};
 helper.util = require('./helpers/util.js');
+
+/**
+* Full player data is here
+*/
 helper.game = require('./helpers/game.js');
 exports.helper = helper;
 exports.handlers = require('./handlers.js');

@@ -69,3 +69,13 @@ exports.get_player = function(socket_id){
     return {room_id:rid,player_id:pid};
 }
 
+/**
+* Set player name
+* @param socket_id
+* @param name the new name to be set
+*/
+exports.set_player_name = function(socket_id,name){
+    player = exports.get_player(socket_id);
+    glob.rooms[player.room_id].game.players[player.player_id].name = name;
+}
+
