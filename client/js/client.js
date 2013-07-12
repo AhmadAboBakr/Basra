@@ -126,11 +126,9 @@ function render(data,everything){
         watcher = false;
         if(everything){
             renderMe(data.players['me'],playerNum);
-            console.log('starting');
         }
         else{
             updateMe(data.players['me'],playerNum);
-            console.log('updateing me');
         }
     }
     else{
@@ -141,7 +139,6 @@ function render(data,everything){
 socket.emit('start',{room:$_GET('room')});
 socket.on('start',function(data){ //begin
     render(JSON.parse(data));
-    console.log('start');
 });
 socket.on('invalid_room',function(){ //begin
     window.location.href ='/rooms';
@@ -151,18 +148,15 @@ socket.on('update',function(data){ //not my turn, update the table, scores, and 
     updateTable(data.table);
     updatePlayerName(data.whoPlayed);
     updatePlayerScore(data.whoPlayed);
-    console.log('update');
 
 });
 socket.on('updatePlayer', function (data) { //my turn, update everything
     if(data !== -1)  // if i played in MY turn
         render(JSON.parse(data),false);
-    console.log('updatePlayer');
 });
 socket.on('player_disconnected', function (data) { //a player left the game
     updatePlayerName(data);
     updatePlayerScore(data);
-    console.log('player_disconnected');
 });
 
 $(document).on("click",".card",function(){

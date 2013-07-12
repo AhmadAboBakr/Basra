@@ -33,20 +33,19 @@ exports.start_handler = function (data,socket) {  //new player wants to join
             io.sockets.socket(socket.id).emit('start',game.getStateFor(player_number));
             for (var i = room.players.length - 1; i >= 0; i--) {
                 io.sockets.socket(room.players[i]).emit('start',game.getStateFor(i));
-            };
+            }
         }
         else if( player_number === -1){
             io.sockets.socket(socket.id).emit('start',game.getStateForWatcher());
         }
         //else if player_num === -2 , do nothing
     }
-}
+};
 /**
 * !socket is overloaded in recursing calls
 */
 exports.step_handler = function (data,socket) { //card played, or play a card
 
-    console.log('step');
     var player_data = data.player !== -1 ?glob.helper.game.get_player(socket.id):socket;
 
     var player = data.player !== -1 ? player_data.player_id: -1;
@@ -74,8 +73,7 @@ exports.step_handler = function (data,socket) { //card played, or play a card
     if(step.new_deal){
         for (var i = rooms[room].players.length - 1; i >= 0; i--) {
             io.sockets.socket(rooms[room].players[i]).emit('start',game.getStateFor(i));
-        };
-        console.log("new deal");
+        }
     }
         
     var next_player_id = game.turn; //next player index
@@ -83,21 +81,19 @@ exports.step_handler = function (data,socket) { //card played, or play a card
 
     //make this function a generic step handler and call it again from here if another machine is on next?
     if( undefined === next_player){
-        console.log("machine...");
         //machine, wait 2 secs, play, then get next and repeat
         setTimeout(function(){
             exports.step_handler({player:-1,card:-1},{room_id:room,player_id:-1});
         },10);
     }
     else{
-        console.log('human');
         //player, tell him it's his turn
     }
 
-}
+};
 exports.get_rooms_handler = function (data, socket){
     io.sockets.socket(socket.id).emit('rooms',rooms);
-}
+};
 exports.disconnect_handler = function (data, socket) { //player leaves, clear his place and get him out of here
     var player = glob.helper.game.get_player(socket.id);
     var room_id = player.room_id;
@@ -116,8 +112,7 @@ exports.disconnect_handler = function (data, socket) { //player leaves, clear hi
         io.sockets.in(room_id).emit('player_disconnected',player_data);
 
         for (var i = room.players.length - 1; i >= 0; i--) {
-                io.sockets.socket(room.players[i]).emit('start',game.getStateFor(i));
-            };
+            io.sockets.socket(room.players[i]).emit('start',game.getStateFor(i));
+        }
     }
-}
-
+};

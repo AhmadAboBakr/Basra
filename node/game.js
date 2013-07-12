@@ -205,7 +205,6 @@ Game = function () {
                 players[i] = ({hand:this.players[i].hand.length,score:this.players[i].score,name:this.players[i].name});
             }
         }
-        console.log(this.turn);
         return JSON.stringify({players:players,table:this.table,current:this.turn});
     };
 
