@@ -56,11 +56,11 @@ exports.get_player = function(socket_id){
     var rid = -1;
     var pid = -1;
 
-    if(!glob.helper.util.isEmpty(rooms)){
+    if(!glob.helper.util.isEmpty(rooms)){ //make sure there is at least one room
         for( var room_id in rooms){
-            if(!rooms.hasOwnProperty(room_id))
+            if(!rooms.hasOwnProperty(room_id)) //ignore inherited stuff
                 continue;
-            if(rooms[room_id].players.indexOf(socket_id) !== -1){
+            if(rooms[room_id].players.indexOf(socket_id) !== -1){  //found the room containing this player
                 rid = room_id;
                 pid = rooms[room_id].players.indexOf(socket_id);
             }
@@ -78,4 +78,3 @@ exports.set_player_name = function(socket_id,name){
     player = exports.get_player(socket_id);
     glob.rooms[player.room_id].game.players[player.player_id].name = name;
 }
-

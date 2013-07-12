@@ -41,9 +41,13 @@ exports.start_handler = function (data,socket) {  //new player wants to join
         //else if player_num === -2 , do nothing
     }
 }
+/**
+* !socket is overloaded in recursing calls
+*/
 exports.step_handler = function (data,socket) { //card played, or play a card
 
-    var player_data = glob.helper.game.get_player(socket.id);
+    var player_data = data.player !== -1 ?glob.helper.game.get_player(socket.id):socket;
+
     var player = data.player !== -1 ? player_data.player_id: -1;
     var room = player_data.room_id;
 
@@ -53,17 +57,35 @@ exports.step_handler = function (data,socket) { //card played, or play a card
     var step = game.step(player,data.card);
     var currentPlayer = game.getStateFor(player);
 
-    io.sockets.socket(socket.id).emit('updatePlayer',currentPlayer);
-    io.sockets.in(room).emit(
+    if(player !== -1)
+        io.sockets.socket(socket.id).emit('updatePlayer',currentPlayer); //update the playing player
+
+    io.sockets.in(room).emit( //notify and update all others
         'update',
         {
             table      : game.table,
             whoPlayed  : {
-                index : data.player,
+                index : game.turn-1 < 0 ? 3:game.turn-1, //the guy who just played
                 score : JSON.parse(currentPlayer).players.me.score
             }
         }
     );
+    var next_player_id = game.turn; //next player index
+    var next_player = glob.rooms[room].players[next_player_id]; //next player socket id
+
+    //make this function a generic step handler and call it again from here if another machine is on next?
+    if( undefined === next_player){
+        console.log("machine...");
+        //machine, wait 2 secs, play, then get next and repeat
+        setTimeout(function(){
+            exports.step_handler({player:-1,card:-1},{room_id:room,player_id:-1});
+        },2000);
+    }
+    else{
+        console.log('human');
+        //player, tell him it's his turn
+    }
+
 }
 exports.get_rooms_handler = function (data, socket){
     io.sockets.socket(socket.id).emit('rooms',rooms);

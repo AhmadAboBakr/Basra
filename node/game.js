@@ -173,6 +173,7 @@ Game = function () {
      * @return {*}
      */
     this.getStateFor = function(id){
+        id = (id === -1)?this.turn:id;
         var players = {};
         for(var i =0 ; i < 4 ; ++i){
             if(i == id){
@@ -183,6 +184,25 @@ Game = function () {
             }
         }
         return JSON.stringify({players:players,table:this.table});
+    };
+
+    /**
+     * Gets the current game state for the current player, hides other players
+     * @param id
+     * @return {*}
+     */
+    this.getStateForCurrentPlayer = function(){
+        var players = {};
+        for(var i =0 ; i < 4 ; ++i){
+            if(i == this.turn){
+                players['me'] = this.players[i];
+            }
+            else{
+                players[i] = ({hand:this.players[i].hand.length,score:this.players[i].score,name:this.players[i].name});
+            }
+        }
+        console.log(this.turn);
+        return JSON.stringify({players:players,table:this.table,current:this.turn});
     };
 
     /**
