@@ -93,6 +93,8 @@ exports.get_rooms_handler = function (data, socket){
 exports.disconnect_handler = function (data, socket) { //player leaves, clear his place and get him out of here
     var player = glob.helper.game.get_player(socket.id);
     var room_id = player.room_id;
+    var player_data = {};
+
     if(room_id !== -1)
     {
         glob.helper.game.set_player_name(socket.id,"machine");
@@ -101,7 +103,9 @@ exports.disconnect_handler = function (data, socket) { //player leaves, clear hi
         var game = room.game;
         delete rooms[room_id].players[p_index];
         console.log(rooms[room_id].players);
-        io.sockets.in(room_id).emit('player_disconnected',{player_id:p_index});
+        player_data.index = p_index;
+        player_data.name = game.players[p_index].name;
+        io.sockets.in(room_id).emit('player_disconnected',player_data);
 
         for (var i = room.players.length - 1; i >= 0; i--) {
                 io.sockets.socket(room.players[i]).emit('start',game.getStateFor(i));
