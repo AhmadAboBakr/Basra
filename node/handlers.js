@@ -46,6 +46,7 @@ exports.start_handler = function (data,socket) {  //new player wants to join
 */
 exports.step_handler = function (data,socket) { //card played, or play a card
 
+    console.log('step');
     var player_data = data.player !== -1 ?glob.helper.game.get_player(socket.id):socket;
 
     var player = data.player !== -1 ? player_data.player_id: -1;
@@ -54,7 +55,7 @@ exports.step_handler = function (data,socket) { //card played, or play a card
     if(room === -1) return; //player not found in any room
 
     var game = rooms[room].game;
-    var step = game.step(player,data.card);
+    var step = JSON.parse(game.step(player,data.card));
     var currentPlayer = game.getStateFor(player);
 
     if(player !== -1)
@@ -70,6 +71,13 @@ exports.step_handler = function (data,socket) { //card played, or play a card
             }
         }
     );
+    if(step.new_deal){
+        for (var i = rooms[room].players.length - 1; i >= 0; i--) {
+            io.sockets.socket(rooms[room].players[i]).emit('start',game.getStateFor(i));
+        };
+        console.log("new deal");
+    }
+        
     var next_player_id = game.turn; //next player index
     var next_player = glob.rooms[room].players[next_player_id]; //next player socket id
 
@@ -79,7 +87,7 @@ exports.step_handler = function (data,socket) { //card played, or play a card
         //machine, wait 2 secs, play, then get next and repeat
         setTimeout(function(){
             exports.step_handler({player:-1,card:-1},{room_id:room,player_id:-1});
-        },2000);
+        },10);
     }
     else{
         console.log('human');

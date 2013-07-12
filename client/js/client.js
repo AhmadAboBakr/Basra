@@ -7,6 +7,14 @@ var game = {};
 var socket = io.connect('http://localhost:3000');
 var watcher = false;
 
+function generate_player_info_html(name,score){
+    return "<div class = 'pinfo'>"+
+                "<img src='../images/ch"+(parseInt(Math.random()*10)%3 +1)+".jpg' style='width:40px;' /><br>"+
+                "<span class='name'>"+name +" : </span>"+
+                "<span class='score'>"+score+"</span>"+
+            "</div>";
+}
+
 function $_GET(q) {
     var vars = {};
     var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
@@ -33,31 +41,72 @@ function updateTable(data){
         table.find(".card").css('margin','-15');
     }
 }
-function updateMe(me,myNumber){
-    var html = "<div class = 'pinfo'><span class='name'>"+me.name +" :</span><span class='score'>"+me.score+"</span></div>";
+function renderMe(me,myNumber){
+    var html = "";
+    if(myNumber!==3) //the left player should have cards_container before pinfo
+        html = generate_player_info_html(me.name,me.score);
+    html += "<div class='cards_container'>";
     for(j=0;j<me.hand.length;j++){
         var id=myNumber+"_"+j;
         html += '<div class="card '+me.hand[j].color+me.hand[j].number+'" id="'+id+'"></div>';
     }
+    html += "</div>";
+    if(myNumber===3) //the left player should have cards_container before pinfo
+        html += generate_player_info_html(me.name,me.score);
     $($(".player")[myNumber]).html(html);
 }
-function updateOthers(players){
-    var html = "";
+function updateMe(me,myNumber){
+    updatePlayerName(me);
+    updatePlayerScore(me);
+    if(me.hand){
+        var html = "";
+        for(j=0;j<me.hand.length;j++){
+            var id=myNumber+"_"+j;
+            html += '<div class="card '+me.hand[j].color+me.hand[j].number+'" id="'+id+'"></div>';
+        }
+        $($(".player")[myNumber]).find(".cards_container").html(html);
+    }
+}
+function renderOthers(players){
+    
     players.forEach(function(player,index){
-        html = "<div class='pinfo'><span class='name'>"+player.name +" :</span><span class='score'>"+player.score+"</span></div>";
+        var html = "";
+        if(index!==3) //the left player should have cards_container before pinfo
+            html = generate_player_info_html(player.name,player.score);
+        
+        html += "<div class='cards_container'>";
+        
         for(var j=0;j<player.hand;j++){
             html += '<div class="cardInvisible"></div>';
+        
         }
+        html += "</div>";
+        
+        if(index===3) //the left player should have cards_container before pinfo
+            html += generate_player_info_html(player.name,player.score);
+        
         $($(".player")[index]).html(html);
     });
 }
 
-function updateLastPlayer(player){
+function updatePlayerName(player){
+    if(player.name && player.index)
+        $($(".player")[player.index]).find(".pinfo .name").html(player.name);
+}
+function updatePlayerScore(player){
+    if(undefined !== player.score && player.index)
+    {
         $($(".player")[player.index]).find(".pinfo .score").html(player.score);
+        $($(".player")[player.index]).find(".cardInvisible").first().remove();
+    }
+}
+function removeCardFromPlayer(player){
+    if(player.index)
         $($(".player")[player.index]).find(".cardInvisible").first().remove();
 }
 
-function render(data){
+function render(data,everything){
+    everything = (everything === undefined)? true:everything;
     if(!data.hasOwnProperty("players"))return; //nothing to render
     var playerNum; //this player
     var others = [];
@@ -70,11 +119,19 @@ function render(data){
         }
     }
     updateTable(data.table);
-    updateOthers(others);
+    if(everything)
+        renderOthers(others);
     if(typeof playerNum !== "undefined") //i'm not a watcher
     {
         watcher = false;
-        updateMe(data.players['me'],playerNum);
+        if(everything){
+            renderMe(data.players['me'],playerNum);
+            console.log('starting');
+        }
+        else{
+            updateMe(data.players['me'],playerNum);
+            console.log('updateing me');
+        }
     }
     else{
         watcher = true;
@@ -84,7 +141,7 @@ function render(data){
 socket.emit('start',{room:$_GET('room')});
 socket.on('start',function(data){ //begin
     render(JSON.parse(data));
-    console.log(data);
+    console.log('start');
 });
 socket.on('invalid_room',function(){ //begin
     window.location.href ='/rooms';
@@ -92,15 +149,20 @@ socket.on('invalid_room',function(){ //begin
 
 socket.on('update',function(data){ //not my turn, update the table, scores, and the hand of the player who just played
     updateTable(data.table);
-    updateLastPlayer(data.whoPlayed);
+    updatePlayerName(data.whoPlayed);
+    updatePlayerScore(data.whoPlayed);
+    console.log('update');
 
 });
 socket.on('updatePlayer', function (data) { //my turn, update everything
     if(data !== -1)  // if i played in MY turn
-        render(JSON.parse(data));
+        render(JSON.parse(data),false);
+    console.log('updatePlayer');
 });
 socket.on('player_disconnected', function (data) { //a player left the game
-    var player_id = data.player_id;
+    updatePlayerName(data);
+    updatePlayerScore(data);
+    console.log('player_disconnected');
 });
 
 $(document).on("click",".card",function(){

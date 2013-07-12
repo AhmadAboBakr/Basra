@@ -40,7 +40,7 @@ exports.add_player = function(socket,room){
     }
 
     if(rooms[room].game.players[player_id] !== undefined)
-        rooms[room].game.players[player_id].name = socket_id;
+        rooms[room].game.players[player_id].name = socket_id.substr(0,10);
     socket.join(room);
 
     return player_id;

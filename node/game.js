@@ -98,7 +98,7 @@ Game = function () {
      * Initialize Deck
      */
     this.initDeck = function () {
-        mapper = {0:'clubs', 1:'diams', 2:'hearts', 3:'spades'};
+        var mapper = {0:'clubs', 1:'diams', 2:'hearts', 3:'spades'};
         for (var i = 0; i < 4; ++i) {
             for (var j = 1; j < 14; ++j) {
                 var obj = new Card(mapper[i], j);
@@ -129,6 +129,7 @@ Game = function () {
      * @return {*}
      */
     this.step = function (playerId,cardId) {
+        var ret = {};
         if(playerId==-1 && cardId==-1){  //npc
             if ( this.players[this.turn].hand.length === 0 ) { //if npc has no cards
                 if( this.deck.length!=0 )this.deal();
@@ -156,8 +157,11 @@ Game = function () {
         }
         if(this.players[3].hand.length==0){
             this.deal();
+            ret.new_deal = "true";
         }
-        return JSON.stringify({players:this.players,table:this.table});
+        ret.players = this.players;
+        ret.table = this.table;
+        return JSON.stringify(ret);
     };
 
     /**
