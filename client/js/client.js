@@ -38,7 +38,7 @@ function updateTable(data){
         table.find(".card").css('margin','5px');
     }
     else{
-        table.find(".card").css('margin','-15');
+        table.find(".card").css('margin','-15px');
     }
 }
 function renderMe(me,myNumber){
@@ -105,9 +105,29 @@ function removeCardFromPlayer(player){
         $($(".player")[player.index]).find(".cardInvisible").first().remove();
 }
 
+function renderScores(players){
+    var html = '<div style="font-weight: bold;">Scores</div>';
+    for(var i=0 ; i<4 ; ++i){
+        html += "<div style='font-style: italic;'>";
+        if(players[i])
+        {
+            html += players[i].name + ": ";
+            html += "<span style='color: red;'>" + players[i].score + "</span>";
+        }
+        else
+        {
+            html += players.me.name + ": ";
+            html += "<span style='color: red;'>" + players.me.score + "</span>";
+        }
+        html += '</div>';
+        $("#scores").html(html);
+    }
+}
+
 function render(data,everything){
     everything = (everything === undefined)? true:everything;
     if(!data.hasOwnProperty("players"))return; //nothing to render
+    renderScores(data.players);
     var playerNum; //this player
     var others = [];
     for(var i=0 ; i<4 ; ++i){
