@@ -44,7 +44,7 @@ exports.start_handler = function (data,socket) {  //new player wants to join
 /**
 * !socket is overloaded in recursing calls
 */
-exports.step_handler = function (data,socket) { //card played, or play a card
+exports.step_handler = function (data,socket) { //card played ( human ), or play a card ( machine )
 
     var player_data = data.player !== -1 ?glob.helper.game.get_player(socket.id):socket;
 
@@ -79,15 +79,16 @@ exports.step_handler = function (data,socket) { //card played, or play a card
     var next_player_id = game.turn; //next player index
     var next_player = glob.rooms[room].players[next_player_id]; //next player socket id
 
-    //make this function a generic step handler and call it again from here if another machine is on next?
-    if( undefined === next_player){
+    if( undefined === next_player){ //Machine's turn
         //machine, wait 2 secs, play, then get next and repeat
         setTimeout(function(){
             exports.step_handler({player:-1,card:-1},{room_id:room,player_id:-1});
-        },10);
+        },1000);
     }
     else{
         //player, tell him it's his turn
+        io.sockets.socket(next_player).emit('your_turn');
+        console.log(next_player)
     }
 
 };

@@ -6,10 +6,12 @@
 var game = {};
 var socket = io.connect('http://localhost:3000');
 var watcher = false;
+var myNumber = null;
+var counterState = 1; //weather or not we should turn off the timer
 
-function generate_player_info_html(name,score){
+function generate_player_info_html(name,score,number){
     return "<div class = 'pinfo'>"+
-                "<img src='../images/ch"+(parseInt(Math.random()*10)%3 +1)+".jpg' style='width:40px;' /><br>"+
+                "<span id='"+number+"_picture'><img src='../images/ch"+(parseInt(Math.random()*10)%3 +1)+".jpg' style='width:40px;' /></span><br>"+
                 "<span class='name'>"+name +" : </span>"+
                 "<span class='score'>"+score+"</span>"+
             "</div>";
@@ -21,6 +23,25 @@ function $_GET(q) {
         vars[key] = value;
     });
     return vars[q];
+}
+
+function displayCounter(replacedDiv,recursive,count){
+    if(!recursive){
+        var count = 9;
+        replacedDiv.hide();
+        var counter = '';
+    }
+    counter = "<span id='counter' style='font-size: 65px;color: blanchedalmond;'>"+ --count +"</span>";
+    $(counter).insertAfter(replacedDiv);
+    if(count > 0 && window.counterState ==1)
+        setTimeout(function(){
+            $("#counter").remove();
+            displayCounter(replacedDiv,true,count);
+        },1000);
+    else{
+        $("#counter").remove();
+        replacedDiv.show();
+    }
 }
 
 function updateTable(data){
@@ -44,7 +65,7 @@ function updateTable(data){
 function renderMe(me,myNumber){
     var html = "";
     if(myNumber!==3) //the left player should have cards_container before pinfo
-        html = generate_player_info_html(me.name,me.score);
+        html = generate_player_info_html(me.name,me.score,myNumber);
     html += "<div class='cards_container'>";
     for(j=0;j<me.hand.length;j++){
         var id=myNumber+"_"+j;
@@ -52,7 +73,7 @@ function renderMe(me,myNumber){
     }
     html += "</div>";
     if(myNumber===3) //the left player should have cards_container before pinfo
-        html += generate_player_info_html(me.name,me.score);
+        html += generate_player_info_html(me.name,me.score,myNumber);
     $($(".player")[myNumber]).html(html);
 }
 function updateMe(me,myNumber){
@@ -72,7 +93,7 @@ function renderOthers(players){
     players.forEach(function(player,index){
         var html = "";
         if(index!==3) //the left player should have cards_container before pinfo
-            html = generate_player_info_html(player.name,player.score);
+            html = generate_player_info_html(player.name,player.score,index);
         
         html += "<div class='cards_container'>";
         
@@ -83,7 +104,7 @@ function renderOthers(players){
         html += "</div>";
         
         if(index===3) //the left player should have cards_container before pinfo
-            html += generate_player_info_html(player.name,player.score);
+            html += generate_player_info_html(player.name,player.score,index);
         
         $($(".player")[index]).html(html);
     });
@@ -138,6 +159,7 @@ function render(data,everything){
             playerNum = i;
         }
     }
+    myNumber = playerNum;
     updateTable(data.table);
     if(everything)
         renderOthers(others);
@@ -178,8 +200,16 @@ socket.on('player_disconnected', function (data) { //a player left the game
     updatePlayerName(data);
     updatePlayerScore(data);
 });
+socket.on('your_turn', function (data) { //a player left the game
+    counterState =1;
+    displayCounter($("#"+myNumber+"_picture"));
+});
+$('#dodoe').click(function(){displayCounter($("#"+myNumber+"_picture"));});
 
 $(document).on("click",".card",function(){
+    if(!$(this).attr("id")) //probably clicking on a table card
+        return;
+    counterState =0;
     var id_array= $(this).attr("id").split("_");
     socket.emit('step', {player:id_array[0],card:id_array[1]});
 });
