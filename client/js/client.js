@@ -27,7 +27,7 @@ function $_GET(q) {
 
 function displayCounter(replacedDiv,recursive,count){
     if(!recursive){
-        var count = 9;
+        var count = 6;
         replacedDiv.hide();
         var counter = '';
     }
@@ -62,6 +62,7 @@ function updateTable(data){
         table.find(".card").css('margin','-15px');
     }
 }
+
 function renderMe(me,myNumber){
     var html = "";
     if(myNumber!==3) //the left player should have cards_container before pinfo

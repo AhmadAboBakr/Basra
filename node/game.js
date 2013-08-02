@@ -37,6 +37,11 @@ Game = function () {
     this.turn = 0;
 
     /**
+     * total turns played
+     */
+    this.totalTurns = 0;
+
+    /**
      * should be called after every played card, to calculate the score and update the floor
      */
     this.collect = function (player,cardId) {
@@ -48,7 +53,7 @@ Game = function () {
         if (this.table.cards.length === 0) {
             this.table.cards.push(card);
         }
-        else if (card.number == 11 || (card.number == 7 && card.color == 'diams')) {
+        else if (card.number == 11 || (card.number == 7 && card.color == 'diams')) { //Jack or 7 Diamonds
             player.score += 1;
             while (this.table.cards.length != 0) {
                 player.score += 1;
@@ -161,6 +166,7 @@ Game = function () {
         }
         ret.players = this.players;
         ret.table = this.table;
+        ret.totalTurns = this.totalTurns;
         return JSON.stringify(ret);
     };
 

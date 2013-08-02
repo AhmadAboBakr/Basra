@@ -10,6 +10,7 @@ var glob = require('./init.js');
 var rooms = glob.rooms;
 var gamelib = glob.gamelib;
 var io = glob.io;
+var turnTimeout;
 
 
 exports.create_room_handler = function(data,socket){
@@ -42,23 +43,28 @@ exports.start_handler = function (data,socket) {  //new player wants to join
     }
 };
 /**
-* !socket is overloaded in recursing calls
-*/
+ * !socket is overloaded in recursing calls
+ *
+ * @param data
+ * @param socket
+ */
 exports.step_handler = function (data,socket) { //card played ( human ), or play a card ( machine )
 
     var player_data = data.player !== -1 ?glob.helper.game.get_player(socket.id):socket;
-
-    var player = data.player !== -1 ? player_data.player_id: -1;
+    var player = data.player !== -1 ? player_data.player_id: -1; //the player's index in players array
     var room = player_data.room_id;
 
     if(room === -1) return; //player not found in any room
 
     var game = rooms[room].game;
     var step = JSON.parse(game.step(player,data.card));
-    var currentPlayer = game.getStateFor(player);
+    var currentPlayer = game.getStateFor(player); //full data for this player
+    console.log('clearing timeout!');
+    clearTimeout(turnTimeout);
 
-    if(player !== -1)
+    if(player !== -1){
         io.sockets.socket(socket.id).emit('updatePlayer',currentPlayer); //update the playing player
+    }
 
     io.sockets.in(room).emit( //notify and update all others
         'update',
@@ -88,7 +94,14 @@ exports.step_handler = function (data,socket) { //card played ( human ), or play
     else{
         //player, tell him it's his turn
         io.sockets.socket(next_player).emit('your_turn');
-        console.log(next_player)
+        turnTimeout = setTimeout(function(){
+            if(game.totalTurns == step.totalTurns){
+                console.log('turn timed out for '+JSON.parse(currentPlayer).players.me.socket_id);
+                var player_index = glob.helper.game.get_player(JSON.parse(currentPlayer).players.me.socket_id).player_id;
+                exports.step_handler({player:player_index,card:-1},{id:JSON.parse(currentPlayer).players.me.socket_id});
+            }
+
+        },5000);
     }
 
 };
