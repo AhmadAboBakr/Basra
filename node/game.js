@@ -131,9 +131,11 @@ Game = function () {
      * Object containing the players an the table otherwise
      * @param playerId
      * @param cardId
+     * @param timeout
      * @return {*}
      */
-    this.step = function (playerId,cardId) {
+    this.step = function (playerId,cardId,timeout) {
+        timeout = timeout || false;
         var ret = {};
         if(playerId==-1 && cardId==-1){  //npc
             if ( this.players[this.turn].hand.length === 0 ) { //if npc has no cards
@@ -158,7 +160,12 @@ Game = function () {
                 this.turn++;
                 if(this.turn>3)
                     this.turn=0;
+                if(timeout)
+                    player.timeouts++;
+                else
+                    player.timeouts = 0;
             }
+            ret.timeouts = player.timeouts;
         }
         if(this.players[3].hand.length==0){
             this.deal();

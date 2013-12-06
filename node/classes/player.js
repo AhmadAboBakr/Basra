@@ -12,17 +12,18 @@ exports.Player = function () {
     this.score = 0;
     this.hand = [];
     this.name = "";
+    this.timeouts = 0;
     this.play = function () {
         return false;
     }
-}
+};
 
 /**
  * Human player
  */
 exports.Human = function() {
     exports.Player.call(this);
-}
+};
 exports.Human.prototype = Object.create(exports.Player.prototype);
 /**
  * Machine player
@@ -43,5 +44,5 @@ exports.Npc = function (name) {
     this.push = function (card) {
         this.hand.push(card);
     }
-}
+};
 exports.Npc.prototype = Object.create(exports.Player.prototype);

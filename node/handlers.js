@@ -10,7 +10,10 @@ var glob = require('./init.js');
 var rooms = glob.rooms;
 var gamelib = glob.gamelib;
 var io = glob.io;
-var turnTimeout;
+var turnTimeout; //timeout timer id
+var timeoutsBeforeKick = 2; //number of timeouts before kicking a player from the room
+var secondsBeforeTimeout = 5; //number of seconds the player should play before
+var machineDelay = 1; //number of seconds before a machine plays
 
 
 exports.create_room_handler = function(data,socket){
@@ -44,12 +47,15 @@ exports.start_handler = function (data,socket) {  //new player wants to join
 };
 /**
  * !socket is overloaded in recursing calls
+ * A game step, either a player or a machine should play
  *
  * @param data
  * @param socket
+ * @param timeout
  */
-exports.step_handler = function (data,socket) { //card played ( human ), or play a card ( machine )
-
+exports.step_handler = function (data,socket,timeout) { //card played ( human ), or play a card ( machine )
+    console.log(data);
+    timeout = timeout || false;
     var player_data = data.player !== -1 ?glob.helper.game.get_player(socket.id):socket;
     var player = data.player !== -1 ? player_data.player_id: -1; //the player's index in players array
     var room = player_data.room_id;
@@ -57,10 +63,13 @@ exports.step_handler = function (data,socket) { //card played ( human ), or play
     if(room === -1) return; //player not found in any room
 
     var game = rooms[room].game;
-    var step = JSON.parse(game.step(player,data.card));
+    var step = JSON.parse(game.step(player,data.card,timeout));
     var currentPlayer = game.getStateFor(player); //full data for this player
-    console.log('clearing timeout!');
     clearTimeout(turnTimeout);
+    
+    if(step.timeouts>timeoutsBeforeKick){
+        socket.leave(room);
+    }
 
     if(player !== -1){
         io.sockets.socket(socket.id).emit('updatePlayer',currentPlayer); //update the playing player
@@ -81,34 +90,40 @@ exports.step_handler = function (data,socket) { //card played ( human ), or play
             io.sockets.socket(rooms[room].players[i]).emit('start',game.getStateFor(i));
         }
     }
+//    if(step.timeouts == timeoutsBeforeKick){
+//        socket.disconnect = true;
+//        this.disconnect_handler(null,socket);
+//    }
         
     var next_player_id = game.turn; //next player index
     var next_player = glob.rooms[room].players[next_player_id]; //next player socket id
 
     if( undefined === next_player){ //Machine's turn
-        //machine, wait 2 secs, play, then get next and repeat
+        //machine, wait a couple of secs, play, then get next and repeat
         setTimeout(function(){
             exports.step_handler({player:-1,card:-1},{room_id:room,player_id:-1});
-        },1000);
+        },machineDelay*1000);
     }
     else{
         //player, tell him it's his turn
         io.sockets.socket(next_player).emit('your_turn');
         turnTimeout = setTimeout(function(){
             if(game.totalTurns == step.totalTurns){
-                console.log('turn timed out for '+JSON.parse(currentPlayer).players.me.socket_id);
                 var player_index = glob.helper.game.get_player(JSON.parse(currentPlayer).players.me.socket_id).player_id;
-                exports.step_handler({player:player_index,card:-1},{id:JSON.parse(currentPlayer).players.me.socket_id});
+                exports.step_handler(
+                    {player:player_index,card:-1},
+                    socket,
+                    true
+                );
             }
-
-        },5000);
+        },secondsBeforeTimeout*1000);
     }
 
 };
 exports.get_rooms_handler = function (data, socket){
     io.sockets.socket(socket.id).emit('rooms',rooms);
 };
-exports.disconnect_handler = function (data, socket) { //player leaves, clear his place and get him out of here
+exports.disconnect_handler = function (data, socket) { //player leaving, clear his place and get him out
     var player = glob.helper.game.get_player(socket.id);
     var room_id = player.room_id;
     var player_data = {};
@@ -120,9 +135,9 @@ exports.disconnect_handler = function (data, socket) { //player leaves, clear hi
         var room = rooms[room_id];
         var game = room.game;
         delete rooms[room_id].players[p_index];
-        console.log(rooms[room_id].players);
         player_data.index = p_index;
         player_data.name = game.players[p_index].name;
+        game.players[p_index].timeouts = 0;
         io.sockets.in(room_id).emit('player_disconnected',player_data);
 
         for (var i = room.players.length - 1; i >= 0; i--) {
