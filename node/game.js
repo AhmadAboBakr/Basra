@@ -137,7 +137,7 @@ Game = function () {
     this.step = function (playerId,cardId,timeout) {
         timeout = timeout || false;
         var ret = {};
-        if(playerId==-1 && cardId==-1){  //npc
+        if( (playerId==-1 && cardId==-1)){  //npc
             if ( this.players[this.turn].hand.length === 0 ) { //if npc has no cards
                 if( this.deck.length!=0 )this.deal();
                 else return this.init();  //if deck has no cards
@@ -146,7 +146,7 @@ Game = function () {
             this.turn++;
             this.turn %= 4;
         }
-        else if( playerId != this.turn ){  //i.e NOT YOUR TURN
+        else if( playerId !== this.turn ){  //i.e NOT YOUR TURN
             return -1;
         }
         else{
