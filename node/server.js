@@ -1,3 +1,3 @@
 var glob = require('./init.js');
 
-glob.server.listen(3000);
+glob.server.listen(process.env.PORT);

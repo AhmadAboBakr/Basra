@@ -32,12 +32,6 @@ io.sockets.on('connection',function(socket){
     });
 });
 
-app.get('/',function(req, res){
-    fs.readFile(__dirname + '/../client/rooms.html', 'utf8', function(err, text){
-        res.send(text);
-    });
-});
-
 app.get('/rooms',function(req, res){
     fs.readFile(__dirname + '/../client/rooms.html', 'utf8', function(err, text){
         res.send(text);
