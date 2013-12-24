@@ -14,7 +14,7 @@
     </form>
 </div>
 <script>
-    var socket = io.connect('http://localhost:3000');
+    var socket = io.connect('https://basra-c9-ahmed_maged.c9.io/');
     $(document).ready(function(){
         socket.emit('get_rooms');
         socket.on('rooms',function(data){
@@ -23,7 +23,7 @@
                 console.log(data[room]);
                 rooms += "<div style='background: tomato;width: 150px;float: left;margin: 20px;padding: 10px;'>Room Name: " + data[room].name+"<br><a href='/basra?room="+room+"'>Join</a></div>";
             }
-            if(rooms=='')rooms="No rooms available create a new one";
+            if(rooms==='')rooms="No rooms available create a new one";
             else rooms += "<div style='clear: both;'></div>";
             $("#rooms").html(rooms);
         });
