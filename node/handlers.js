@@ -64,6 +64,10 @@ exports.step_handler = function (data,socket,timeout) { //card played ( human ),
 
     var game = rooms[room].game;
     var step = JSON.parse(game.step(player,data.card,timeout));
+    if(-1 === step){
+        console.log('wrong turn');
+        return; //wrong turn
+    }
     var currentPlayer = game.getStateFor(player); //full data for this player
     clearTimeout(turnTimeout);
     
