@@ -174,7 +174,7 @@ Game = function () {
         }
         ret.players = this.players;
         ret.table = this.table;
-        ret.totalTurns = this.totalTurns;
+        ret.totalTurns = ++this.totalTurns;
         return JSON.stringify(ret);
     };
 
@@ -234,6 +234,19 @@ Game = function () {
         }
         return JSON.stringify({players:players,table:this.table});
     };
+
+    /**
+     * Get the scores of all players in this game
+     * @return {} containing names:[],scores:[]
+     */
+    this.getScores = function(){
+        var ret = {names:[],scores:[]};
+        for(var i =0; i <4; i++){
+            ret.names.push(this.players[i].name);
+            ret.scores.push(this.players[i].score);
+        }
+        return ret;
+    }
 };
 
 exports.game = Game;

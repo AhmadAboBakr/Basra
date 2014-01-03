@@ -4,7 +4,7 @@
  * Time: 11:39 PM
  */
 var game = {};
-var socket = io.connect('https://basra-c9-ahmed_maged.c9.io/');
+var socket = io.connect('http://localhost:3000');
 var watcher = false;
 var myNumber = null;
 var counterState = 1; //weather or not we should turn off the timer
@@ -68,7 +68,8 @@ function renderMe(me,myNumber){
     if(myNumber!==3) //the left player should have cards_container before pinfo
         html = generate_player_info_html(me.name,me.score,myNumber);
     html += "<div class='cards_container'>";
-    for(j=0;j<me.hand.length;j++){
+    for(var j=0;j<me.hand.length;j++){
+        if(!me.hand[j])continue;
         var id=myNumber+"_"+j;
         html += '<div class="card '+me.hand[j].color+me.hand[j].number+'" id="'+id+'"></div>';
     }
@@ -205,6 +206,19 @@ socket.on('your_turn', function (data) { //a player left the game
     counterState =1;
     displayCounter($("#"+myNumber+"_picture"));
 });
+socket.on('endOfGame', function (data) {
+    var html = '<h3>Final Scores: </h3>';
+    html += "<table>";
+    for(var i =0;i<4;i++){
+        html += "<tr>";
+        html += "<td>"+data.names[i]+"</td>";
+        html += "<td>"+data.scores[i]+"</td>";
+        html += "<tr>";
+    }
+    html += "</table>";
+    html += "<button class='reset'>Play Again!</button>";
+    $("#log").html(html);
+});
 $('#dodoe').click(function(){displayCounter($("#"+myNumber+"_picture"));});
 
 $(document).on("click",".card",function(){
@@ -217,4 +231,7 @@ $(document).on("click",".card",function(){
 
 $(document).on("click","#next",function(){
     socket.emit('step', {player:-1,card:-1});
+});
+$(document).on("click",".reset",function(){
+    socket.emit('reset', {room_id:$_GET('room')});
 });

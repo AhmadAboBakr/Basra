@@ -13,8 +13,8 @@ var io = glob.io;
 var allSockets = glob.allSockets;
 var turnTimeout; //timeout timer id
 var timeoutsBeforeKick = 2; //number of timeouts before kicking a player from the room
-var secondsBeforeTimeout = 5; //number of seconds the player should play before
-var machineDelay = 1; //number of seconds before a machine plays
+var secondsBeforeTimeout = 1; //number of seconds the player should play before
+var machineDelay = 0; //number of seconds before a machine plays
 
 
 exports.create_room_handler = function(data,socket){
@@ -23,6 +23,15 @@ exports.create_room_handler = function(data,socket){
     game.init();
     rooms[room_id] = {game:game,players:[],name:data};
     io.sockets.emit('room_created',{room_id:room_id,name:data});
+};
+
+exports.reset_handler = function(room_id){
+    var game = new gamelib.game();
+    game.init();
+    rooms[room_id].game = game;
+    for (var i = rooms[room_id].players.length - 1; i >= 0; i--) {
+        io.sockets.socket(rooms[room_id].players[i]).emit('start',game.getStateFor(i));
+    }
 };
 
 exports.start_handler = function (data,socket) {  //new player wants to join
@@ -62,6 +71,16 @@ exports.step_handler = function (data,socket,timeout) { //card played ( human ),
 
     if(room === -1) return; //player not found in any room
     var game = rooms[room].game;
+    if(game.totalTurns === 48){
+        io.sockets.in(room).emit( //no more cards
+            'endOfGame',
+            {
+                scores: game.getScores().scores,
+                names: game.getScores().names
+            }
+        );
+        return;
+    }
     var currentPlayerIndex = game.turn;
     var step = JSON.parse(game.step(player,data.card,timeout));
     if(-1 === step){
@@ -96,7 +115,16 @@ exports.step_handler = function (data,socket,timeout) { //card played ( human ),
 //        socket.disconnect = true;
 //        this.disconnect_handler(null,socket);
 //    }
-
+    if(game.totalTurns === 48){
+        io.sockets.in(room).emit( //no more cards
+            'endOfGame',
+            {
+                scores: game.getScores().scores,
+                names: game.getScores().names
+            }
+        );
+        return;
+    }
     var next_player_id = game.turn; //next player index
     var next_player = glob.rooms[room].players[next_player_id]; //next player socket id
     if( undefined === next_player){ //Machine's turn

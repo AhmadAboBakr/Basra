@@ -24,6 +24,9 @@ io.sockets.on('connection',function(socket){
     socket.on('step', function (data) {
         return glob.handlers.step_handler(data,socket);
     });
+    socket.on('reset', function (data) {
+        return glob.handlers.reset_handler(data.room_id,socket);
+    });
     socket.on('get_rooms', function (data) {
         return glob.handlers.get_rooms_handler(data,socket);
     });
