@@ -29,5 +29,6 @@ helper.util = require('./helpers/util.js');
 */
 helper.game = require('./helpers/game.js');
 exports.helper = helper;
+exports.allSockets = {}; //all sockets keyed by socket id
 exports.handlers = require('./handlers.js');
 exports.routings = require('./routing.js');

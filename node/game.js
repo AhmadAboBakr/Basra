@@ -46,6 +46,7 @@ Game = function () {
      */
     this.collect = function (player,cardId) {
         var card=(cardId==-1)?player.play(this.table):player.hand[cardId];
+        if(!card)card = player.play(this.table); //if the player plays a card he doesn't have, play a random one
         player.hand = player.hand.filter(function (element) {
             ///this  returns all but card
             return (element !== card);

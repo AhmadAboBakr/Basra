@@ -10,6 +10,7 @@ var glob = require('./init.js');
 var rooms = glob.rooms;
 var gamelib = glob.gamelib;
 var io = glob.io;
+var allSockets = glob.allSockets;
 var turnTimeout; //timeout timer id
 var timeoutsBeforeKick = 2; //number of timeouts before kicking a player from the room
 var secondsBeforeTimeout = 5; //number of seconds the player should play before
@@ -25,7 +26,7 @@ exports.create_room_handler = function(data,socket){
 };
 
 exports.start_handler = function (data,socket) {  //new player wants to join
-        
+    allSockets[socket.id] = socket; //save the socket for later reference
     if(typeof data.room == 'undefined' || typeof rooms[data.room] == 'undefined'){
         io.sockets.socket(socket.id).emit('invalid_room');
     }
@@ -46,7 +47,7 @@ exports.start_handler = function (data,socket) {  //new player wants to join
     }
 };
 /**
- * !socket is overloaded in recursing calls
+ * !socket is overloaded in recursive calls
  * A game step, either a player or a machine should play
  *
  * @param data
@@ -54,31 +55,28 @@ exports.start_handler = function (data,socket) {  //new player wants to join
  * @param timeout
  */
 exports.step_handler = function (data,socket,timeout) { //card played ( human ), or play a card ( machine )
-    console.log(data);
     timeout = timeout || false;
-    var player_data = data.player !== -1 ?glob.helper.game.get_player(socket.id):socket;
+    var player_data = (undefined !== socket.player_id)?socket:glob.helper.game.get_player(socket.id);
     var player = data.player !== -1 ? player_data.player_id: -1; //the player's index in players array
     var room = player_data.room_id;
 
     if(room === -1) return; //player not found in any room
-
     var game = rooms[room].game;
+    var currentPlayerIndex = game.turn;
     var step = JSON.parse(game.step(player,data.card,timeout));
     if(-1 === step){
-        console.log('wrong turn');
         return; //wrong turn
     }
-    var currentPlayer = game.getStateFor(player); //full data for this player
+    var currentPlayer = game.getStateFor(currentPlayerIndex); //full data for this player
     clearTimeout(turnTimeout);
-    
+
     if(step.timeouts>timeoutsBeforeKick){
         socket.leave(room);
     }
 
-    if(player !== -1){
+    if(socket && socket.id){ //if not a machine
         io.sockets.socket(socket.id).emit('updatePlayer',currentPlayer); //update the playing player
     }
-
     io.sockets.in(room).emit( //notify and update all others
         'update',
         {
@@ -98,28 +96,24 @@ exports.step_handler = function (data,socket,timeout) { //card played ( human ),
 //        socket.disconnect = true;
 //        this.disconnect_handler(null,socket);
 //    }
-        
+
     var next_player_id = game.turn; //next player index
     var next_player = glob.rooms[room].players[next_player_id]; //next player socket id
-
     if( undefined === next_player){ //Machine's turn
         //machine, wait a couple of secs, play, then get next and repeat
         setTimeout(function(){
-            exports.step_handler({player:-1,card:-1},{room_id:room,player_id:-1});
+            exports.step_handler({player:-1,card:-1},{room_id:room,player_id:-1},false);
         },machineDelay*1000);
     }
     else{
         //player, tell him it's his turn
         io.sockets.socket(next_player).emit('your_turn');
         turnTimeout = setTimeout(function(){
-            if(game.totalTurns == step.totalTurns){
-                var player_index = glob.helper.game.get_player(JSON.parse(currentPlayer).players.me.socket_id).player_id;
-                exports.step_handler(
-                    {player:player_index,card:-1},
-                    socket,
-                    true
-                );
-            }
+            exports.step_handler(
+                {player:-1,card:-1},
+                allSockets[game.players[game.turn]['socket_id']], //the socket of the next player
+                true
+            );
         },secondsBeforeTimeout*1000);
     }
 
