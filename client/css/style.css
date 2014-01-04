@@ -164,7 +164,12 @@
     color: #593e1A;
 }
 #menu{
-    margin-left: 6px;
+    position: absolute;
+    left: 0;
+    top: 90px;
+    padding: 8px 30px 13px 15px;
+    background: rgb(238, 238, 238);
+    border: 1px solid rgb(204, 204, 204);
 }
 #log{
     background: rgb(230,230,230);

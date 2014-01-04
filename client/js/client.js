@@ -206,7 +206,7 @@ socket.on('your_turn', function (data) { //a player left the game
     counterState =1;
     displayCounter($("#"+myNumber+"_picture"));
 });
-socket.on('endOfGame', function (data) {
+function renderScoresHtml(data){
     var html = '<h3>Final Scores: </h3>';
     html += "<table>";
     for(var i =0;i<4;i++){
@@ -218,6 +218,16 @@ socket.on('endOfGame', function (data) {
     html += "</table>";
     html += "<button class='reset'>Play Again!</button>";
     $("#log").html(html);
+}
+socket.on('endOfGame', function (data) {
+    var res = ' --Scores-- '+"\n";
+    for(var i =0;i<4;i++){
+        res += data.names[i] + ": "+data.scores[i]+"\n";
+    }
+    res += "\n Play Again?";
+    if(confirm(res)){
+        socket.emit('reset', {room_id:$_GET('room')});
+    }
 });
 $('#dodoe').click(function(){displayCounter($("#"+myNumber+"_picture"));});
 

@@ -6,37 +6,37 @@
     <script src="/socket.io/socket.io.js"></script>
     <link rel="stylesheet" href="css/style.css">
 </head>
-<body>
+<body style="margin-left: 0;">
 
-<div id="left-sidebar">
     <div id="menu">
         <a href="/rooms" class="link">Rooms</a>
     </div>
-    <div id="log">
-        <button id="dodoe">DODOE</button>
+    <div id="left-sidebar">
+        <!--<div id="log">-->
+            <!--<button id="dodoe">DODOE</button>-->
+        <!--</div>-->
     </div>
-</div>
-<div class="table" style="">
-    <div id="top" class="hor player"> <!-- top -->
+    <div class="table" style="">
+        <div id="top" class="hor player"> <!-- top -->
+        </div>
+        <div id="right" class="vert player"><!-- right -->
+        </div>
+        <div id="bottom" class="hor player"><!-- bottom -->
+        </div>
+        <div id="left" class="vert player"><!-- left -->
+        </div>
+        <div id="table"><!-- table -->
+        </div>
     </div>
-    <div id="right" class="vert player"><!-- right -->
+    <div id="right-sidebar">
+        <div id="scores"></div>
+        <!--<div id="chat">-->
+            <!--<div id="chat-messages"></div>-->
+            <!--<textarea id="chat-type"></textarea>-->
+            <!--<button id="chat-send">Send</button>-->
+        <!--</div>-->
     </div>
-    <div id="bottom" class="hor player"><!-- bottom -->
-    </div>
-    <div id="left" class="vert player"><!-- left -->
-    </div>
-    <div id="table"><!-- table -->
-    </div>
-</div>
-<div id="right-sidebar">
-    <div id="scores"></div>
-    <div id="chat">
-        <div id="chat-messages"></div>
-        <textarea id="chat-type"></textarea>
-        <button id="chat-send">Send</button>
-    </div>
-</div>
-
-<script src="js/client.js"></script>
+    <div style="clear: both;"></div>
+    <script src="js/client.js"></script>
 </body>
 </html>
