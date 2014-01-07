@@ -8,6 +8,20 @@ var socket = io.connect('http://localhost:3000');
 var watcher = false;
 var myNumber = null;
 var counterState = 1; //weather or not we should turn off the timer
+var lastPlayedCard; //last card played by this player
+
+/**
+ * animate the card being played, card collected (if any)
+ * @param callback a function to call once finished
+ */
+function animate(callback){
+    lastPlayedCard.css('border','1px solid #e020e0').css('opacity','0.99').css('box-shadow','0px 0px 10px 3px #e03030');
+    $("#table").find('.card').each(function(i,e){
+        if(lastPlayedCard.data('number') === $(e).data('number'))
+            $(e).css('border','1px solid #e020e0').css('opacity','0.99').css('box-shadow','0px 0px 10px 3px #e03030');
+    });
+    setTimeout(callback,600);
+}
 
 function generate_player_info_html(name,score,number){
     return "<div class = 'pinfo'>"+
@@ -27,7 +41,7 @@ function $_GET(q) {
 
 function displayCounter(replacedDiv,recursive,count){
     if(!recursive){
-        var count = 6;
+        var count = 10;
         replacedDiv.hide();
         var counter = '';
     }
@@ -49,7 +63,7 @@ function updateTable(data){
     table.html("");
     for(var k =0; k < data.cards.length ; ++k){
         table.html(function(index,oldHtml){
-            return oldHtml + '<div class="card '+data.cards[k].color+data.cards[k].number+'"></div>';
+            return oldHtml + '<div class="card '+data.cards[k].color+data.cards[k].number+'" data-number="'+data.cards[k].number+'"></div>';
         });
     }
 
@@ -71,7 +85,7 @@ function renderMe(me,myNumber){
     for(var j=0;j<me.hand.length;j++){
         if(!me.hand[j])continue;
         var id=myNumber+"_"+j;
-        html += '<div class="card '+me.hand[j].color+me.hand[j].number+'" id="'+id+'"></div>';
+        html += '<div class="card '+me.hand[j].color+me.hand[j].number+'" data-number="'+me.hand[j].number+'" id="'+id+'"></div>';
     }
     html += "</div>";
     if(myNumber===3) //the left player should have cards_container before pinfo
@@ -85,7 +99,7 @@ function updateMe(me,myNumber){
         var html = "";
         for(j=0;j<me.hand.length;j++){
             var id=myNumber+"_"+j;
-            html += '<div class="card '+me.hand[j].color+me.hand[j].number+'" id="'+id+'"></div>';
+            html += '<div class="card '+me.hand[j].color+me.hand[j].number+'" data-number="'+me.hand[j].number+'"  id="'+id+'"></div>';
         }
         $($(".player")[myNumber]).find(".cards_container").html(html);
     }
@@ -117,7 +131,7 @@ function updatePlayerName(player){
         $($(".player")[player.index]).find(".pinfo .name").html(player.name);
 }
 function updatePlayerScore(player){
-    if(undefined !== player.score && player.index)
+    if(undefined !== player.score && player.index !== undefined && player.index !== -1)
     {
         $($(".player")[player.index]).find(".pinfo .score").html(player.score);
         $($(".player")[player.index]).find(".cardInvisible").first().remove();
@@ -189,14 +203,18 @@ socket.on('invalid_room',function(){ //begin
 });
 
 socket.on('update',function(data){ //not my turn, update the table, scores, and the hand of the player who just played
+//    if(data.whoPlayed.index == myNumber) return;
     updateTable(data.table);
     updatePlayerName(data.whoPlayed);
     updatePlayerScore(data.whoPlayed);
 
 });
 socket.on('updatePlayer', function (data) { //my turn, update everything
-    if(data !== -1)  // if i played in MY turn
-        render(JSON.parse(data),false);
+    if(data !== -1){  // if i played in MY turn
+//        animate(function(){
+            render(JSON.parse(data),false);
+//        });
+    }
 });
 socket.on('player_disconnected', function (data) { //a player left the game
     updatePlayerName(data);
@@ -235,8 +253,13 @@ $(document).on("click",".card",function(){
     if(!$(this).attr("id")) //probably clicking on a table card
         return;
     counterState =0;
+    lastPlayedCard = $(this);
     var id_array= $(this).attr("id").split("_");
-    socket.emit('step', {player:id_array[0],card:id_array[1]});
+    animate(
+        function(){
+            socket.emit('step', {player:id_array[0],card:id_array[1]});
+        }
+    );
 });
 
 $(document).on("click","#next",function(){
