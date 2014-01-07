@@ -306,3 +306,6 @@ $(document).on("click","#next",function(){
 $(document).on("click",".reset",function(){
     socket.emit('reset', {room_id:$_GET('room')});
 });
+$(document).on("click","#clearLog",function(){
+    $("#log").html("");
+});
