@@ -13,8 +13,8 @@ var io = glob.io;
 var allSockets = glob.allSockets;
 var turnTimeout; //timeout timer id
 var timeoutsBeforeKick = 2; //number of timeouts before kicking a player from the room
-var secondsBeforeTimeout = 1; //number of seconds the player should play before
-var machineDelay = 0; //number of seconds before a machine plays
+var secondsBeforeTimeout = 9; //number of seconds the player should play before
+var machineDelay = 1; //number of seconds before a machine plays
 
 
 exports.create_room_handler = function(data,socket){
@@ -139,7 +139,10 @@ exports.step_handler = function (data,socket,timeout) { //card played ( human ),
         turnTimeout = setTimeout(function(){
             exports.step_handler(
                 {player:-1,card:-1},
-                allSockets[game.players[game.turn]['socket_id']], //the socket of the next player
+                {
+                    player_id: allSockets[game.players[game.turn]['socket_id']], //the socket of the next player
+                    room_id: room
+                },
                 true
             );
         },secondsBeforeTimeout*1000);
