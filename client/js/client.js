@@ -119,7 +119,7 @@ function renderMe(me,myNumber){
 }
 function updateMe(me,myNumber){
     updatePlayerName(me);
-    updatePlayerScore(me);
+    updatePlayerScoreAndCards(me);
     if(me.hand){
         var html = "";
         for(j=0;j<me.hand.length;j++){
@@ -155,11 +155,23 @@ function updatePlayerName(player){
     if(player.name && player.index)
         $($(".player")[player.index]).find(".pinfo .name").html(player.name);
 }
-function updatePlayerScore(player){
+function updatePlayerScoreAndCards(player,cardPlayed,callback){
     if(undefined !== player.score && player.index !== undefined && player.index !== -1)
     {
         $($(".player")[player.index]).find(".pinfo .score").html(player.score);
-        $($(".player")[player.index]).find(".cardInvisible").first().remove();
+        if(cardPlayed && callback){
+            $($(".player")[player.index]).find(".cardInvisible").first().replaceWith(
+                "<div class='card notInvisible "+cardPlayed.color+cardPlayed.number +"' style='opacity: 0.99'></div>"
+            );
+            $("#table").find('.card').each(function(i,e){
+                if(cardPlayed.number === $(e).data('number'))
+                    $(e).css('border','1px solid #e020e0').css('opacity','0.99').css('box-shadow','0px 0px 10px 3px #e03030');
+            });
+            setTimeout(function(){
+                $($(".player")[player.index]).find('.card.notInvisible').remove();
+                callback();
+            },750);
+        }
     }
 }
 function removeCardFromPlayer(player){
@@ -229,11 +241,11 @@ socket.on('invalid_room',function(){ //begin
 
 socket.on('update',function(data){ //not my turn, update the table, scores, and the hand of the player who just played
 //    if(data.whoPlayed.index == myNumber) return;
-    updateTable(data.table);
-    updatePlayerName(data.whoPlayed);
-    updatePlayerScore(data.whoPlayed);
-    updateLog(data.log);
-
+    updatePlayerScoreAndCards(data.whoPlayed,data.log.cardPlayed,function(){
+        updateTable(data.table);
+        updatePlayerName(data.whoPlayed);
+        updateLog(data.log);
+    });
 });
 socket.on('updatePlayer', function (data) { //my turn, update everything
     if(data !== -1){  // if i played in MY turn
@@ -244,7 +256,7 @@ socket.on('updatePlayer', function (data) { //my turn, update everything
 });
 socket.on('player_disconnected', function (data) { //a player left the game
     updatePlayerName(data);
-    updatePlayerScore(data);
+    updatePlayerScoreAndCards(data);
 });
 socket.on('your_turn', function (data) { //a player left the game
     counterState =1;
