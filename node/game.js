@@ -46,6 +46,7 @@ Game = function () {
      */
     this.collect = function (player,cardId) {
         var card=(cardId==-1)?player.play(this.table):player.hand[cardId];
+        var collectedCards = [];
         if(!card)card = player.play(this.table); //if the player plays a card he doesn't have, play a random one
         player.hand = player.hand.filter(function (element) {
             ///this  returns all but card
@@ -58,14 +59,14 @@ Game = function () {
             player.score += 1;
             while (this.table.cards.length != 0) {
                 player.score += 1;
-                this.table.cards.pop();
+                collectedCards.push(this.table.cards.pop());
             }
         }
         else {
             var index;
             var collected = false;
             while (( index = this.table.compareCards(card)) !== -1) {
-                this.table.cards.splice(index, 1);
+                collectedCards = this.table.cards.splice(index, 1);
                 player.score += (this.table.cards.length !== 0) ? 1 : 11;
                 collected = true;
             }
@@ -73,7 +74,11 @@ Game = function () {
                 this.table.cards.push(card);
             else player.score += 1;
         }
-    }
+        return {
+            cardPlayed: card,
+            cardsCollected: collectedCards
+        };
+    };
 
     /**
      * deal cards
@@ -138,12 +143,13 @@ Game = function () {
     this.step = function (playerId,cardId,timeout) {
         timeout = timeout || false;
         var ret = {};
+        var collect; //the returned object from this.collect
         if(playerId==-1 && cardId==-1){  //npc
             if ( this.players[this.turn].hand.length === 0 ) { //if npc has no cards
                 if( this.deck.length!=0 )this.deal();
                 else return this.init();  //if deck has no cards
             }
-            this.collect( this.players[this.turn] , cardId );
+            collect = this.collect( this.players[this.turn] , cardId );
             this.turn++;
             this.turn %= 4;
         }
@@ -157,7 +163,7 @@ Game = function () {
                 else return this.init();
             }
             else {
-                this.collect( player, cardId );
+                collect = this.collect( player, cardId );
                 this.turn++;
                 if(this.turn>3)
                     this.turn=0;
@@ -175,6 +181,8 @@ Game = function () {
         ret.players = this.players;
         ret.table = this.table;
         ret.totalTurns = ++this.totalTurns;
+        ret.cardPlayed = collect.cardPlayed;
+        ret.cardsCollected = collect.cardsCollected;
         return JSON.stringify(ret);
     };
 

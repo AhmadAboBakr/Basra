@@ -10,6 +10,31 @@ var myNumber = null;
 var counterState = 1; //weather or not we should turn off the timer
 var lastPlayedCard; //last card played by this player
 
+function getCardName(number){
+    if(number==1) return 'Ace';
+    if(number < 11) return number;
+    if(number==11) return 'Jack';
+    if(number==12) return 'Queen';
+    if(number==13) return 'King';
+}
+
+function updateLog(data){
+    var collected = "";
+    if(data.cardsCollected.length > 0){
+        collected = "<br>and collected: <br><span style='color: green;'>";
+        for(var i =0; i <data.cardsCollected.length; ++i){
+            collected += getCardName(data.cardsCollected[i].number) + " of " + data.cardsCollected[i].color + "<br>";
+        }
+        collected += "</span>";
+    }
+    $("#log").append("<p>" +
+        "<span style='color: red;'>" + data.name + "</span>" +
+        " played <span style='color: blue;'>" + getCardName(data.cardPlayed.number) + " of " + data.cardPlayed.color + "</span>" +
+        collected +
+        "</p>");
+    var objDiv = document.getElementById("log");
+    objDiv.scrollTop = objDiv.scrollHeight;
+}
 /**
  * animate the card being played, card collected (if any)
  * @param callback a function to call once finished
@@ -207,6 +232,7 @@ socket.on('update',function(data){ //not my turn, update the table, scores, and 
     updateTable(data.table);
     updatePlayerName(data.whoPlayed);
     updatePlayerScore(data.whoPlayed);
+    updateLog(data.log);
 
 });
 socket.on('updatePlayer', function (data) { //my turn, update everything

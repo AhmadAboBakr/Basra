@@ -14,7 +14,7 @@ var allSockets = glob.allSockets;
 var turnTimeout; //timeout timer id
 var timeoutsBeforeKick = 2; //number of timeouts before kicking a player from the room
 var secondsBeforeTimeout = 9; //number of seconds the player should play before
-var machineDelay = 1; //number of seconds before a machine plays
+var machineDelay = 1.5; //number of seconds before a machine plays
 
 
 exports.create_room_handler = function(data,socket){
@@ -103,6 +103,11 @@ exports.step_handler = function (data,socket,timeout) { //card played ( human ),
             whoPlayed  : {
                 index : game.turn-1 < 0 ? 3:game.turn-1, //the guy who just played
                 score : JSON.parse(currentPlayer).players.me.score
+            },
+            log: {
+                name: JSON.parse(currentPlayer).players.me.name,
+                cardPlayed: step.cardPlayed,
+                cardsCollected: step.cardsCollected
             }
         }
     );
