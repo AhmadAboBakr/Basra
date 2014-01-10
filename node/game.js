@@ -144,7 +144,9 @@ Game = function () {
         timeout = timeout || false;
         var ret = {};
         var collect; //the returned object from this.collect
-        if(playerId==-1 && cardId==-1){  //npc
+        var player;
+        if(playerId==-1 && cardId==-1){  //npc or timed out player
+            player = this.players[this.turn];
             if ( this.players[this.turn].hand.length === 0 ) { //if npc has no cards
                 if( this.deck.length!=0 )this.deal();
                 else return this.init();  //if deck has no cards
@@ -152,12 +154,16 @@ Game = function () {
             collect = this.collect( this.players[this.turn] , cardId );
             this.turn++;
             this.turn %= 4;
+            if(timeout)
+                player.timeouts++;
+            else
+                player.timeouts = 0;
         }
         else if( playerId != this.turn ){  //i.e NOT YOUR TURN
             return -1;
         }
         else{
-            var player=this.players[ playerId ];
+            player = this.players[ playerId ];
             if ( player.hand.length === 0 ) {
                 if( this.deck.length!=0 )this.deal();
                 else return this.init();
@@ -167,10 +173,6 @@ Game = function () {
                 this.turn++;
                 if(this.turn>3)
                     this.turn=0;
-                if(timeout)
-                    player.timeouts++;
-                else
-                    player.timeouts = 0;
             }
             ret.timeouts = player.timeouts;
         }

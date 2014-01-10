@@ -7,22 +7,60 @@
 */
 
 var glob = require('./init.js');
-var rooms = glob.rooms;
+
 var gamelib = glob.gamelib;
+
 var io = glob.io;
+
 var allSockets = glob.allSockets;
-var turnTimeout; //timeout timer id
-var timeoutsBeforeKick = 2; //number of timeouts before kicking a player from the room
-var secondsBeforeTimeout = 9; //number of seconds the player should play before
-var machineDelay = 1.5; //number of seconds before a machine plays
+
+/**
+ * @type Room
+ */
+var room = require('./classes/room.js').Room;
+
+/**
+ * An object containing rooms keyed by room id
+ * @type {}
+ */
+var rooms = glob.rooms;
+
+/**
+ * timeout timer id
+ */
+var turnTimeout;
+
+/**
+ * number of timeouts before kicking a player from the room
+ * @type {number}
+ */
+var timeoutsBeforeKick = 2;
+
+/**
+ * number of seconds the player should play before
+ * @type {number}
+ */
+var secondsBeforeTimeout = 9;
+
+/**
+ * number of seconds before a machine plays
+ * @type {number}
+ */
+var machineDelay = 1.5;
 
 
+/**
+ * Creates a new room
+ *
+ * @param data
+ * @param socket
+ */
 exports.create_room_handler = function(data,socket){
     var game = new gamelib.game();
     var room_id = glob.helper.util.make_id();
     game.init();
-    rooms[room_id] = {game:game,players:[],name:data};
-    io.sockets.emit('room_created',{room_id:room_id,name:data});
+    rooms[room_id] = new room(game,[],data);
+    io.sockets.emit('room_created',{ room_id: room_id, name: data });
 };
 
 exports.reset_handler = function(room_id){
@@ -59,18 +97,107 @@ exports.start_handler = function (data,socket) {  //new player wants to join
  * !socket is overloaded in recursive calls
  * A game step, either a player or a machine should play
  *
+ * data:
+ *     In recursive calls, it should be { player: -1, card: -1} for both machines and timed out players,
+ *     In normal calls, it should be { player: int, card: int }
+ *
+ * socket:
+ *     In normal calls, this should be the actual socket
+ *     In recursive calls, this should be { room_id: int , player_id: -1 } for machines,
+ *                                        { room_id: int , player_id: socket } for timed out players
+ *
+ * timeout: bool, true for timed out players
+ *
  * @param data
  * @param socket
  * @param timeout
  */
 exports.step_handler = function (data,socket,timeout) { //card played ( human ), or play a card ( machine )
+
     timeout = timeout || false;
+
+    /**
+     * in recursive calls, this should be either:
+     * { room_id: string, player_id: -1 } for machines, or
+     * { room_id: string, player_id: socket } for timed out players
+     *
+     * in normal calls, this should be:
+     * { room_id: string , player_id: int (player index) }
+     *
+     * @type {}
+     */
     var player_data = (undefined !== socket.player_id)?socket:glob.helper.game.get_player(socket.id);
-    var player = data.player !== -1 ? player_data.player_id: -1; //the player's index in players array
+
+    /**
+     * the player's index in players array
+     */
+    var player = data.player !== -1 ? player_data.player_id: -1;
+
+    /**
+     * @type string | int
+     */
     var room = player_data.room_id;
 
+    /**
+     * index of the next player in the game
+     * @type int
+     */
+    var next_player_id;
+
+    /**
+     * socket id of the next player
+     * @type string
+     */
+    var next_player;
+
+    /**
+     * @type Game
+     */
+    var game;
+
+    /**
+     * current player's index in the game
+     * @type int
+     */
+    var currentPlayerIndex;
+
+    /**
+     * could be one of three:
+     * 1. if we are dealing a new game, then: Object containing: [] players, Table table.
+     * 2. if this is not this player's turn, then: -1
+     * 3. normal:
+     *    Object containing:
+     *        timeouts,
+     *        new_deal,
+     *        players,
+     *        table,
+     *        total_turns,
+     *        cardPlayed,
+     *        cardCollected
+     *
+     */
+    var step;
+
+    /**
+     * Object containing players, table.
+     * players is an object containing:
+     * {
+     *  me: {score,hand:[{color,number}*],name},
+     *  int(0-4): {score, hand:int, name},
+     *  int(0-4): {score, hand:int, name},
+     *  int(0-4): {score, hand:int, name}
+     *  }
+     */
+    var currentPlayer;
+
     if(room === -1) return; //player not found in any room
-    var game = rooms[room].game;
+
+    game = rooms[room].game;
+
+    if( typeof socket.player_id === 'object' && socket.player_id.id ){ //if this is a player timeout, return the overloaded socket to its normal
+        socket = socket.player_id;
+    }
+
     if(game.totalTurns === 48){
         io.sockets.in(room).emit( //no more cards
             'endOfGame',
@@ -81,12 +208,14 @@ exports.step_handler = function (data,socket,timeout) { //card played ( human ),
         );
         return;
     }
-    var currentPlayerIndex = game.turn;
-    var step = JSON.parse(game.step(player,data.card,timeout));
+    currentPlayerIndex = game.turn;
+    step = JSON.parse(game.step(player,data.card,timeout));
     if(-1 === step){
         return; //wrong turn
     }
-    var currentPlayer = game.getStateFor(currentPlayerIndex); //full data for this player
+    currentPlayer = game.getStateFor(currentPlayerIndex); //full data for this player
+
+    //todo is this going to work when several games are running simultaneously?
     clearTimeout(turnTimeout);
 
     if(step.timeouts>timeoutsBeforeKick){
@@ -130,12 +259,20 @@ exports.step_handler = function (data,socket,timeout) { //card played ( human ),
         );
         return;
     }
-    var next_player_id = game.turn; //next player index
-    var next_player = glob.rooms[room].players[next_player_id]; //next player socket id
+
+    //------------ handle the next turn -------------//
+
+    next_player_id = game.turn; //next player index
+    next_player = glob.rooms[room].players[next_player_id]; //next player socket id
+
     if( undefined === next_player){ //Machine's turn
         //machine, wait a couple of secs, play, then get next and repeat
         setTimeout(function(){
-            exports.step_handler({player:-1,card:-1},{room_id:room,player_id:-1},false);
+            exports.step_handler(
+                { player: -1, card: -1 },
+                { room_id:room, player_id: -1 }
+                ,false
+            );
         },machineDelay*1000);
     }
     else{

@@ -11,6 +11,8 @@ var rooms = glob.rooms;
 /**
  * Adds a player to a room
  * returns -1 if room is full, -2 for existing players, player number for a successfull new player
+ *
+ * todo shouldn't this be in game.js?
  * @param socket
  * @param room room id
  * @return {Number}
