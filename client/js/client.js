@@ -9,6 +9,7 @@ var watcher = false;
 var myNumber = null;
 var counterState = 1; //weather or not we should turn off the timer
 var lastPlayedCard; //last card played by this player
+var myTurn = false;
 
 function getCardName(number){
     if(number==1) return 'Ace';
@@ -41,11 +42,44 @@ function updateLog(data){
  */
 function animate(callback){
     lastPlayedCard.css('border','1px solid #e020e0').css('opacity','0.99').css('box-shadow','0px 0px 10px 3px #e03030');
-    $("#table").find('.card').each(function(i,e){
-        if(lastPlayedCard.data('number') === $(e).data('number'))
-            $(e).css('border','1px solid #e020e0').css('opacity','0.99').css('box-shadow','0px 0px 10px 3px #e03030');
+    lastPlayedCard.position({
+        at: "left+50% top+50%",
+        of: $("#table"),
+        using: function(css, calc) {
+            lastPlayedCard.animate(css, 300, "linear");
+        }
     });
-    setTimeout(callback,600);
+    setTimeout(function(){
+        var collected = false;
+        $("#table").find('.card').each(function(i,e){
+            if(lastPlayedCard.data('number') === $(e).data('number')){
+                $(e)
+                    .css('border','1px solid #e020e0')
+                    .css('opacity','0.99')
+                    .css('box-shadow','0px 0px 10px 3px #e03030')
+                    .addClass('toBeCollected')
+                    .position({
+                        at: "left+50% top+50%",
+                        of: $($(".player")[myNumber]),
+                        using: function(css, calc) {
+                            $(e).animate(css, 300, "linear");
+                        }
+                    })
+                ;
+                collected = true;
+            }
+        });
+        if(collected){
+            lastPlayedCard.position({
+                at: "left+50% top+50%",
+                of: $($(".player")[myNumber]),
+                using: function(css, calc) {
+                    lastPlayedCard.animate(css, 300, "linear");
+                }
+            });
+        }
+        setTimeout(callback,1100);
+    },700);
 }
 
 function generate_player_info_html(name,score,number){
@@ -231,8 +265,23 @@ function render(data,everything){
     }
 }
 
+function renderScoresHtml(data){
+    var html = '<h3>Final Scores: </h3>';
+    html += "<table>";
+    for(var i =0;i<4;i++){
+        html += "<tr>";
+        html += "<td>"+data.names[i]+"</td>";
+        html += "<td>"+data.scores[i]+"</td>";
+        html += "<tr>";
+    }
+    html += "</table>";
+    html += "<button class='reset'>Play Again!</button>";
+    $("#log").html(html);
+}
+
 socket.emit('start',{room:$_GET('room')});
 socket.on('start',function(data){ //begin
+    myTurn = true;
     render(JSON.parse(data));
 });
 socket.on('invalid_room',function(){ //begin
@@ -260,21 +309,9 @@ socket.on('player_disconnected', function (data) { //a player left the game
 });
 socket.on('your_turn', function (data) { //a player left the game
     counterState =1;
+    myTurn = true;
     displayCounter($("#"+myNumber+"_picture"));
 });
-function renderScoresHtml(data){
-    var html = '<h3>Final Scores: </h3>';
-    html += "<table>";
-    for(var i =0;i<4;i++){
-        html += "<tr>";
-        html += "<td>"+data.names[i]+"</td>";
-        html += "<td>"+data.scores[i]+"</td>";
-        html += "<tr>";
-    }
-    html += "</table>";
-    html += "<button class='reset'>Play Again!</button>";
-    $("#log").html(html);
-}
 socket.on('endOfGame', function (data) {
     var res = ' --Scores-- '+"\n";
     for(var i =0;i<4;i++){
@@ -290,11 +327,15 @@ $('#dodoe').click(function(){displayCounter($("#"+myNumber+"_picture"));});
 $(document).on("click",".card",function(){
     if(!$(this).attr("id")) //probably clicking on a table card
         return;
+    if(!myTurn){
+        return;
+    }
     counterState =0;
     lastPlayedCard = $(this);
     var id_array= $(this).attr("id").split("_");
     animate(
         function(){
+            myTurn = false;
             socket.emit('step', {player:id_array[0],card:id_array[1]});
         }
     );

@@ -46,7 +46,7 @@ var secondsBeforeTimeout = 9;
  * number of seconds before a machine plays
  * @type {number}
  */
-var machineDelay = 1.5;
+var machineDelay = 2.5;
 
 
 /**
@@ -91,6 +91,21 @@ exports.start_handler = function (data,socket) {  //new player wants to join
             io.sockets.socket(socket.id).emit('start',game.getStateForWatcher());
         }
         //else if player_num === -2 , do nothing
+
+
+        //-------------- set timeout for the first player---------------------//
+        io.sockets.socket(socket.id).emit('your_turn');
+        turnTimeout = setTimeout(function(){
+            exports.step_handler(
+                {player:-1,card:-1},
+                {
+                    player_id: allSockets[game.players[game.turn]['socket_id']], //the socket of the next player
+                    room_id: data.room
+                },
+                true
+            );
+        },secondsBeforeTimeout*1000);
+        //------------------------------------------------------------------//
     }
 };
 /**
