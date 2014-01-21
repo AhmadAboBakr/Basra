@@ -14,7 +14,7 @@
     </form>
 </div>
 <script>
-    var socket = io.connect('http://localhost:3000');
+    var socket = io.connect(window.location.origin);
     $(document).ready(function(){
         socket.emit('get_rooms');
         socket.on('rooms',function(data){
