@@ -38,21 +38,25 @@ function updateLog(data){
 }
 /**
  * animate the card being played, card collected (if any)
+ * @param card the card element
+ * @param player the players position/index
  * @param callback a function to call once finished
  */
-function animate(callback){
-    lastPlayedCard.css('border','1px solid #e020e0').css('opacity','0.99').css('box-shadow','0px 0px 10px 3px #e03030');
-    lastPlayedCard.position({
+function animate(card,player,callback){
+    console.log(card.attr('class'));
+    console.log(player);
+    card.css('border','1px solid #e020e0').css('opacity','0.99').css('box-shadow','0px 0px 10px 3px #e03030');
+    card.position({
         at: "left+50% top+50%",
         of: $("#table"),
         using: function(css, calc) {
-            lastPlayedCard.animate(css, 300, "linear");
+            card.animate(css, 300, "linear");
         }
     });
     setTimeout(function(){
         var collected = false;
         $("#table").find('.card').each(function(i,e){
-            if(lastPlayedCard.data('number') === $(e).data('number')){
+            if(card.data('number') === $(e).data('number')){
                 $(e)
                     .css('border','1px solid #e020e0')
                     .css('opacity','0.99')
@@ -60,7 +64,7 @@ function animate(callback){
                     .addClass('toBeCollected')
                     .position({
                         at: "left+50% top+50%",
-                        of: $($(".player")[myNumber]),
+                        of: $($(".player")[player]),
                         using: function(css, calc) {
                             $(e).animate(css, 300, "linear");
                         }
@@ -70,11 +74,11 @@ function animate(callback){
             }
         });
         if(collected){
-            lastPlayedCard.position({
+            card.position({
                 at: "left+50% top+50%",
-                of: $($(".player")[myNumber]),
+                of: $($(".player")[player]),
                 using: function(css, calc) {
-                    lastPlayedCard.animate(css, 300, "linear");
+                    card.animate(css, 300, "linear");
                 }
             });
         }
@@ -190,21 +194,31 @@ function updatePlayerName(player){
         $($(".player")[player.index]).find(".pinfo .name").html(player.name);
 }
 function updatePlayerScoreAndCards(player,cardPlayed,callback){
+
+    var card; //the played card
+
     if(undefined !== player.score && player.index !== undefined && player.index !== -1)
     {
+        //update score
         $($(".player")[player.index]).find(".pinfo .score").html(player.score);
+
         if(cardPlayed && callback){
-            $($(".player")[player.index]).find(".cardInvisible").first().replaceWith(
-                "<div class='card notInvisible "+cardPlayed.color+cardPlayed.number +"' style='opacity: 0.99'></div>"
+
+            //animate the card and make it visible
+            card = $($(".player")[player.index]).find(".cardInvisible").first();
+            card.replaceWith(
+                "<div id='toBeRemoved' class='card notInvisible "+cardPlayed.color+cardPlayed.number +"' style='opacity: 0.99'></div>"
             );
-            $("#table").find('.card').each(function(i,e){
-                if(cardPlayed.number === $(e).data('number'))
-                    $(e).css('border','1px solid #e020e0').css('opacity','0.99').css('box-shadow','0px 0px 10px 3px #e03030');
-            });
-            setTimeout(function(){
-                $($(".player")[player.index]).find('.card.notInvisible').remove();
-                callback();
-            },750);
+            animate(
+                $("#toBeRemoved"),
+                player.index,
+                function(){
+                    setTimeout(function(){
+                        $($(".player")[player.index]).find('.card.notInvisible').remove();
+                        callback();
+                    },750);
+                }
+            );
         }
     }
 }
@@ -334,6 +348,8 @@ $(document).on("click",".card",function(){
     lastPlayedCard = $(this);
     var id_array= $(this).attr("id").split("_");
     animate(
+        lastPlayedCard,
+        myNumber,
         function(){
             myTurn = false;
             socket.emit('step', {player:id_array[0],card:id_array[1]});
