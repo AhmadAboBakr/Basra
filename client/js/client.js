@@ -4,7 +4,7 @@
  * Time: 11:39 PM
  */
 var game = {};
-var socket = io.connect('http://localhost:3000');
+var socket = io.connect(window.location.origin);
 var watcher = false;
 var myNumber = null;
 var counterState = 1; //weather or not we should turn off the timer
