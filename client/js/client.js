@@ -37,15 +37,23 @@ function updateLog(data){
     objDiv.scrollTop = objDiv.scrollHeight;
 }
 /**
- * animate the card being played, card collected (if any)
+ * animate the card being played, cards collected (if any)
+ * The plan:
+ *  1.animate the played card position until it reaches about the middle of the table
+ *  2.after a couple of hundreds of millisecs, loop the cards on the table,
+ *      whenever a card matches the played card,
+ *      change its style, animate it's position until it reaches the player,
+ *      then if at least one card has matched, animate the played card too until it reaches the player
  * @param card the card element
  * @param player the players position/index
  * @param callback a function to call once finished
  */
 function animate(card,player,callback){
-    console.log(card.attr('class'));
-    console.log(player);
-    card.css('border','1px solid #e020e0').css('opacity','0.99').css('box-shadow','0px 0px 10px 3px #e03030');
+    card
+        .css('border','1px solid #e020e0')
+        .css('opacity','0.99')
+        .css('box-shadow','0px 0px 10px 3px #e03030')
+        .css('z-index','1');
     card.position({
         at: "left+50% top+50%",
         of: $("#table"),
@@ -207,18 +215,21 @@ function updatePlayerScoreAndCards(player,cardPlayed,callback){
             //animate the card and make it visible
             card = $($(".player")[player.index]).find(".cardInvisible").first();
             card.replaceWith(
-                "<div id='toBeRemoved' class='card notInvisible "+cardPlayed.color+cardPlayed.number +"' style='opacity: 0.99'></div>"
+                "<div id='toBeRemoved' class='card notInvisible "+cardPlayed.color+cardPlayed.number +"' style='opacity: 0.99' data-number='"+cardPlayed.number+"'></div>"
             );
-            animate(
-                $("#toBeRemoved"),
-                player.index,
-                function(){
-                    setTimeout(function(){
-                        $($(".player")[player.index]).find('.card.notInvisible').remove();
-                        callback();
-                    },750);
-                }
-            );
+            setTimeout(function(){
+                animate(
+                    $("#toBeRemoved"),
+                    player.index,
+                    function(){
+                        setTimeout(function(){
+                            $($(".player")[player.index]).find('.card.notInvisible').remove();
+                            callback();
+                        },50);
+                    }
+                );
+            },200);
+
         }
     }
 }
