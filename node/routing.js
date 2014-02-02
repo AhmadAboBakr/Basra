@@ -36,18 +36,18 @@ io.sockets.on('connection',function(socket){
 });
 
 app.get('/rooms',function(req, res){
-    fs.readFile(__dirname + '/../client/rooms.html', 'utf8', function(err, text){
+    fs.readFile(__dirname + '/../public/rooms.html', 'utf8', function(err, text){
         res.send(text);
     });
 });
 app.get('/basra',function(req, res){
-    fs.readFile(__dirname + '/../client/basra.html', 'utf8', function(err, text){
+    fs.readFile(__dirname + '/../public/basra.html', 'utf8', function(err, text){
         res.send(text);
     });
 });
 
 app.get('/',function(req, res){
-    fs.readFile(__dirname + '/../client/rooms.html', 'utf8', function(err, text){
+    fs.readFile(__dirname + '/../public/rooms.html', 'utf8', function(err, text){
         res.send(text);
     });
 });
