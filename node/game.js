@@ -9,6 +9,7 @@ var Player = require('./classes/player.js').Player;
 var Human = require('./classes/player.js').Human;
 var Npc = require('./classes/player.js').Npc;
 var Table = require('./classes/table.js').Table;
+var gameCommon = require('../public/js/game.js').game;
 
 /**
  * The game object. Handles everything
@@ -46,34 +47,15 @@ Game = function () {
      */
     this.collect = function (player,cardId) {
         var card=(cardId==-1)?player.play(this.table):player.hand[cardId];
-        var collectedCards = [];
         if(!card)card = player.play(this.table); //if the player plays a card he doesn't have, play a random one
-        player.hand = player.hand.filter(function (element) {
+
+        player.hand = player.hand.filter(function (element) { //remove tha card from the players hand
             ///this  returns all but card
             return (element !== card);
         });
-        if (this.table.cards.length === 0) {
-            this.table.cards.push(card);
-        }
-        else if (card.number == 11 || (card.number == 7 && card.color == 'diams')) { //Jack or 7 Diamonds
-            player.score += 1;
-            while (this.table.cards.length != 0) {
-                player.score += 1;
-                collectedCards.push(this.table.cards.pop());
-            }
-        }
-        else {
-            var index;
-            var collected = false;
-            while (( index = this.table.compareCards(card)) !== -1) {
-                collectedCards = this.table.cards.splice(index, 1);
-                player.score += (this.table.cards.length !== 0) ? 1 : 11;
-                collected = true;
-            }
-            if (!collected)
-                this.table.cards.push(card);
-            else player.score += 1;
-        }
+        var results = gameCommon.collect(card,this.table);
+        player.score += +results.score;
+        var collectedCards = results.collectedCards;
         return {
             cardPlayed: card,
             cardsCollected: collectedCards
