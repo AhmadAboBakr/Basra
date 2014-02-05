@@ -5,6 +5,16 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
+    <WebView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/webView1"
+
+        android:layout_height="fill_parent"
+        android:layout_width="fill_parent"
+        >
+
+        </WebView>
+<!--
     <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
@@ -160,5 +170,5 @@
         </LinearLayout>
 
     </RelativeLayout>
-
+-->
 </LinearLayout>
