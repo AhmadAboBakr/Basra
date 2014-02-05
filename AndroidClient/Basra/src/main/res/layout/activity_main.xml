@@ -1,0 +1,164 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_weight="10">
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            tools:context=".MainActivity">
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_weight="10">
+                <TextView
+                    android:id="@+id/Player1_name"
+                    android:layout_height="wrap_content"
+                    android:layout_width="fill_parent" />
+                <ImageView
+                    android:id="@+id/Player1_pic"
+                    android:layout_height="fill_parent"
+                    android:layout_width="fill_parent" />
+                <TextView
+                    android:id="@+id/Player1_score"
+                    android:layout_height="wrap_content"
+                    android:layout_width="fill_parent"
+                    android:layout_below="@id/Player1_name"/>
+
+            </RelativeLayout>
+            <RelativeLayout
+                android:textAlignment="center"
+                android:background="#ffff55"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_weight="6">
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_weight="10">
+                <TextView
+                    android:id="@+id/Player2_name"
+                    android:layout_height="wrap_content"
+                    android:layout_width="fill_parent" />
+                <ImageView
+                    android:id="@+id/Player2_pic"
+                    android:layout_height="fill_parent"
+                    android:layout_width="fill_parent" />
+                <TextView
+                    android:id="@+id/Player2_score"
+                    android:layout_height="wrap_content"
+                    android:layout_width="fill_parent"
+                    android:layout_below="@id/Player2_name" />
+
+            </RelativeLayout>
+
+
+        </LinearLayout>
+
+
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_weight="6">
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            tools:context=".MainActivity">
+            <RelativeLayout
+                android:background="#ffff55"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_weight="10"
+                android:textAlignment="center">
+            </RelativeLayout>
+            <RelativeLayout
+                android:background="@drawable/bg2"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_weight="6">
+            </RelativeLayout>
+            <RelativeLayout
+                android:background="#ffff55"
+                android:textAlignment="center"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_weight="10">
+            </RelativeLayout>
+
+
+
+        </LinearLayout>
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_weight="10">
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            tools:context=".MainActivity">
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_weight="10">
+                <TextView
+                    android:id="@+id/Player4_name"
+                    android:layout_height="wrap_content"
+                    android:layout_width="fill_parent" />
+                <ImageView
+                    android:id="@+id/Player4_pic"
+                    android:layout_height="fill_parent"
+                    android:layout_width="fill_parent" />
+                <TextView
+                    android:id="@+id/Player4_score"
+                    android:layout_height="wrap_content"
+                    android:layout_width="fill_parent"
+                    android:layout_below="@id/Player4_name" />
+
+            </RelativeLayout>
+            <RelativeLayout
+                android:textAlignment="center"
+                android:background="#ffff55"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_weight="6">
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_weight="10">
+                <TextView
+                    android:id="@+id/Player3_name"
+                    android:layout_height="wrap_content"
+                    android:layout_width="fill_parent" />
+                <ImageView
+                    android:id="@+id/Player3_pic"
+                    android:layout_height="fill_parent"
+                    android:layout_width="fill_parent" />
+                <TextView
+                    android:id="@+id/Player3_score"
+                    android:layout_height="wrap_content"
+                    android:layout_width="fill_parent"
+                    android:layout_below="@id/Player3_name" />
+            </RelativeLayout>
+
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</LinearLayout>
