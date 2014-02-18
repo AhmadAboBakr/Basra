@@ -5,11 +5,25 @@
 * This file contains the code that initializes tha application
 *
 */
+exports.env = process.argv.slice(2,3) || 'dev';
 exports.gamelib = require('./game.js');
 exports.express = require('express');
 exports.fs = require('fs');
 exports.app = exports.express();
-exports.server = require('http').createServer(exports.app);
+if( 'dev' === exports.env ){
+    exports.server = require('http').createServer(exports.app);
+}
+else{
+    var sslOptions = {
+        key: fs.readFileSync('../../../ssl/server.key'),
+        cert: fs.readFileSync('../../../ssl/server.crt'),
+        ca: fs.readFileSync('../../../ssl/ca.crt'),
+        requestCert: true,
+        rejectUnauthorized: false
+    };
+    exports.server = require('https').createServer(sslOptions,exports.app);
+}
+
 exports.io = require('socket.io').listen(exports.server);
 exports.io.set('log level', 1);
 

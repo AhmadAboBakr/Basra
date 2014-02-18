@@ -46,7 +46,7 @@ app.get('/basra',function(req, res){
     });
 });
 
-app.get('/',function(req, res){
+app.all('/',function(req, res){
     fs.readFile(__dirname + '/../public/rooms.html', 'utf8', function(err, text){
         res.send(text);
     });
