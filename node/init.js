@@ -8,7 +8,7 @@
 exports.env = process.argv.slice(2,3) || 'dev';
 exports.gamelib = require('./game.js');
 exports.express = require('express');
-exports.fs = require('fs');
+exports.fs = fs = require('fs');
 exports.app = exports.express();
 if( 'dev' === exports.env ){
     exports.server = require('http').createServer(exports.app);
