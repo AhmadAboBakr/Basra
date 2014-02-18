@@ -5,7 +5,7 @@
 * This file contains the code that initializes tha application
 *
 */
-exports.env = process.argv.slice(2,3) || 'dev';
+exports.env = process.argv.slice(2,3).pop() || 'dev';
 exports.gamelib = require('./game.js');
 exports.express = require('express');
 exports.fs = fs = require('fs');
