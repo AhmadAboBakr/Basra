@@ -31,7 +31,8 @@ exports.game =  {
         else {
             var index;
             var collected = false;
-            while (( index = table.compareCards(card)) !== -1) {
+            var collectedCards=table.compareCards(card);
+            while ( index = collectedCards.pop()) {
                 collectedCards = table.cards.splice(index, 1);
                 score += (table.cards.length !== 0) ? 1 : 11;
                 collected = true;

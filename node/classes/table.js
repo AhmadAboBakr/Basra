@@ -9,11 +9,22 @@
 exports.Table = function() {
     this.cards = [];
     this.compareCards = function (obj) {
-        for (var i = 0; i < this.cards.length; ++i) {
-            if (this.cards[i].number == obj.number) {
-                return i;
-            }
-        }
-        return -1;
+	collectedCards=[];
+        for(var i=0;i<this.cards.length;i++){
+		console.log(this.cards);
+		console.log(i);
+		if(this.cards[i].number>obj.number)break;
+		if(this.cards[i].number==obj.number){
+			collectedCards.push(i);
+			
+		}
+		for(var j=i+1;j<this.cards.length;++j){
+			if(this.cards[i].number+this.cards[j].number==obj.number){
+				collectedCards.push(i);
+				collectedCards.push(j)
+			}
+		}
+	}
+        return collectedCards;
     };
 };
